@@ -1,0 +1,84 @@
+# Config file for Extreme G US Recompilation.
+[input]
+entrypoint = 0x8004b400
+rom = 0x800000
+# Paths are relative to the location of this config file.
+elf_path = "extremeg.us.elf"
+# symbols_file_path = "Starfox64RecompSyms/sf64.us.rev1.syms.toml"
+# rom_file_path = "starfox64.us.rev1.uncompressed.z64"
+output_func_path = "RecompiledFuncs"
+
+[patches]
+stubs = [
+]
+
+ignored = [
+    "D_8004B644",
+    "func_80069854", # this function isn't called by any other and it calls func_800F2058 which we don't have
+    "func_800762F4",
+    "func_800A5134",
+    "aspMainTextStart",
+    "func_8004B744",
+    "Decompress_ClearCache",
+    "gspL3DEX_fifoTextStart",
+    "gspF3DLX_fifoTextStart",
+    "Boot_Setup", ################## recheck
+    "func_80076A0C",
+    "func_80076708",
+    "func_80076644",
+    "func_800B34A4",
+    "func_80076188",
+    "func_800762A4",
+    "func_8006A3BC",
+    "func_800762C0",
+    "xldtob_rodata_0058",
+]
+
+renamed = [
+
+]
+
+[[patches.instruction]]
+func = "func_8005BA2C"
+vram = 0x8005BA2C
+value = 0x00000000 # nop
+
+[[patches.instruction]]
+func = "func_80061124"
+vram = 0x80061124
+value = 0x00000000 # nop
+
+[[patches.instruction]]
+func = "func_800FD888"
+vram = 0x800FE414
+value = 0x00000000 # nop
+
+[[patches.instruction]]
+func = "Boot_Setup"
+vram = 0x8004B994
+value = 0x00000000 # nop
+
+[[patches.instruction]]
+func = "func_80060E84"
+vram = 0x80060E84
+value = 0x00000000 # nop
+
+[[patches.instruction]]
+func = "func_800D1AC8"
+vram = 0x800D1C44
+value = 0x00000000 # nop
+
+[[patches.instruction]]
+func = "func_800FBBD0"
+vram = 0x800FBDAC
+value = 0x00000000 # nop
+
+# HitCount Cap to 999 instead of 511
+# [[patches.instruction]]
+# func = "Display_Update"
+# vram = 0x80057D50
+# value = 0x290103E8 # slti  $at, $t0, 0x200 -> slti $at, $t0, 0x3E8
+# [[patches.instruction]]
+# func = "Display_Update"
+# vram = 0x80057D5C
+# value = 0x240903E7 # addiu t1,zero, 0x1ff -> addiu t1,zero,0x3e7

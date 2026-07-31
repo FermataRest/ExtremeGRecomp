@@ -1,93 +1,133 @@
-# ExtremeGRecomp
+# Banjo: Recompiled
+Banjo: Recompiled is a project that uses [N64: Recompiled](https://github.com/N64Recomp/N64Recomp) to **statically recompile** Banjo-Kazooie into a native port with many new features, enhancements, and extensive mod support. This project uses [RT64](https://github.com/rt64/rt64) as the rendering engine to provide graphical enhancements.
 
+### [Check out the latest release here](https://github.com/BanjoRecomp/BanjoRecomp/releases/latest).
 
+Join the [N64: Recompiled Community Discord](https://discord.gg/AWZThJ4dPf) to discuss this and other N64: Recompiled projects!
 
-## Getting started
+[![Discord Invitation](https://discordapp.com/api/guilds/1374083583739826328/widget.png?style=banner2 'N64 Recomp')](https://discord.gg/AWZThJ4dPf)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+### **This repository and its releases do not contain game assets. The original game is required to build or run this project.**
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Table of Contents
+* [System Requirements](#system-requirements)
+* [Features](#features)
+  * [Plug and Play](#plug-and-play)
+  * [Fully Intact N64 Effects](#fully-intact-n64-effects)
+  * [Faithful Audio](#faithful-audio)
+  * [Easy-to-Use Menus](#easy-to-use-menus)
+  * [High Framerate Support](#high-framerate-support)
+  * [Widescreen and Ultrawide Support](#widescreen-and-ultrawide-support)
+  * [Mod Support](#mod-support)
+  * [Dual Analog Camera](#dual-analog-camera)
+  * [Note Saving](#note-saving)
+  * [Low Input Lag](#low-input-lag)
+  * [Instant Load Times](#instant-load-times)
+  * [Linux and Steam Deck Support](#linux-and-steam-deck-support)
+* [Planned Features](#planned-features)
+* [FAQ](#faq)
+* [Known Issues](#known-issues)
+* [Building](#building)
+* [Libraries Used and Projects Referenced](#libraries-used-and-projects-referenced)
 
-## Add your files
+## System Requirements
+A GPU supporting Direct3D 12.0 (Shader Model 6), Vulkan 1.2, or Metal Argument Buffers Tier 2 support is required to run this project. The oldest GPUs that should be supported for each vendor are:
+* GeForce GT 630
+* Radeon HD 7750 (the one from 2012, not to be confused with the RX 7000 series) and newer
+* Intel HD 510 (Skylake)
+* A Mac with Apple Silicon or an Intel 7th Gen CPU with MacOS 13.0+
 
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+On x86-64 PCs, a CPU supporting the SSE4.1 instruction set is also required (Intel Core 2 Penryn series or AMD Bulldozer and newer). ARM64 builds will work on any ARM64 CPU.
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/sonicdcer/ExtremeGRecomp.git
-git branch -M main
-git push -uf origin main
-```
+If you have issues with crashes on startup, make sure your graphics drivers are fully up to date. 
 
-## Integrate with your tools
+## Features
 
-* [Set up project integrations](https://gitlab.com/sonicdcer/ExtremeGRecomp/-/settings/integrations)
+#### Plug and Play
+Simply provide your copy of the North American 1.0 version of the game in the main menu and start playing! This project will automatically load assets from the provided copy, so there is no need to go through a separate extraction step or build the game yourself.
 
-## Collaborate with your team
+#### Fully Intact N64 Effects
+All advanced graphical effects, such as the jigsaw puzzle screen transition and Bottles' Moving Picture Game are fully intact and have been adapted for widescreen and high framerates. Fine details such as the game's original mipmapping preserved with a high degree of accuracy.
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+#### Faithful Audio
+Music and sounds are perfectly faithful to the original N64 version of game, with all audio processing intact and no popping or stuttering. Scenes that synchronize audio to visuals have their timings corrected to ensure they remain synchronized as they did on original hardware.
 
-## Test and Deploy
+#### Easy-to-Use Menus
+Gameplay settings, graphics settings, input mappings, and audio settings can all be configured with the in-game config menu. The menus can all be used with mouse, controller, or keyboard for maximum convenience.
 
-Use the built-in continuous integration in GitLab.
+#### High Framerate Support
+Play at any framerate you want thanks to functionality provided by RT64! Game objects and terrain, texture scrolling, screen effects, and all HUD elements are all rendered at high framerates. By default, this project is configured to run at your monitor's refresh rate. You can also play at the original framerate of the game if you prefer. **Changing framerate has no effect on gameplay.**
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
+**Note**: External framerate limiters (such as the NVIDIA Control Panel) are known to potentially cause problems, so if you notice any stuttering then turn them off and use the manual framerate slider in the in-game graphics menu instead.
 
-***
+#### Widescreen and Ultrawide Support
+Any aspect ratio is supported, with all effects modded to work correctly in widescreen. The HUD can also be positioned at 16:9 when using ultrawide aspect ratios if preferred. Game models have been extended where necessary to ensure cutscenes work correctly in 16:9 aspect ratio. Cutscenes can also be optionally pillarboxed to 16:9 or the game's original aspect ratio to hide any details that weren't meant to be visible.
 
-# Editing this README
+#### Mod Support
+Install community made mods and texture packs! Mods can change any part of the game, including adding completely new features and content. You can install mods by simply dragging the mod files onto the game window before starting the game or by clicking the **Install Mods** button in the mod menu. Mods can be toggled in the mod menu, and some mods can be configured there as well.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+Many mods are available on the project's Thunderstore page: https://thunderstore.io/c/banjo-recompiled/. The Thunderstore mod manager/r2modman is not required or supported, so simply download the mods directly from the website.
 
-## Suggestions for a good README
+If you're interested in making mods for this project, check out [the mod template](https://github.com/BanjoRecomp/BKRecompModTemplate) and [the modding documentation](https://hackmd.io/fMDiGEJ9TBSjomuZZOgzNg). If you're interested in making texture packs, check out [the RT64 documentation](https://github.com/rt64/rt64/blob/main/TEXTURE-PACKS.md). You can also join the [N64: Recompiled Modding Discord server](https://discord.gg/Z8Nbm455D4).
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+#### Dual Analog Camera
+Play with a dual analog control for finer camera control! When this option is enabled, the right analog stick will control the camera. Buttons mapped to the right analog stick will still work while crouching, so you can keep the C-buttons mapped to it even when this setting is enabled.
 
-## Name
-Choose a self-explaining name for your project.
+#### Note Saving
+Keep your notes when leaving a level or dying like in later releases of the game!
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+This setting can be turned off to restore the N64 version's note score mechanic. Changing this setting will only take effect when returning to Grunty's Lair or restarting the game.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+#### Low Input Lag
+This project has been optimized to have as little input lag as possible, making the game feel more responsive than ever!
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+#### Instant Load Times
+Saving and loading files, going from place to place, and pausing all happen in the blink of an eye thanks to the game running natively on modern hardware.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+#### Linux and Steam Deck Support
+A Linux binary as well as a Flatpak is available for playing on most up-to-date distros, including on the Steam Deck.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+To play on Steam Deck, extract the Linux build onto your deck. Then, in desktop mode, right click the BanjoRecompiled executable file and select "Add to Steam". From there, you can return to Gaming mode and configure the controls as needed.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+## Planned Features
+* Ray Tracing via RT64
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+## FAQ
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+#### What is static recompilation?
+Static recompilation is the process of automatically translating an application from one platform to another. For more details, check out the full description of how this project's recompilation works here: [N64: Recompiled](https://github.com/Mr-Wiseguy/N64Recomp).
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+#### How is this related to the decompilation project?
+Unlike N64 ports in the past, this project is not based on the source code provided by a decompilation of the game. This is because static recompilation bypasses the need for decompiled source code when making a port, allowing ports to be made **without source code**. However, the reverse engineering work done by the decompilation team was invaluable for providing some of the enhancements featured in this project. For this reason, the project uses headers and some functions from the decompilation project in order to make modifications to the game. Many thanks to the decompilation team for all of the hard work they've done.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+#### Where is the savefile stored?
+- Windows: `%LOCALAPPDATA%\BanjoRecompiled\saves`
+- Linux: `~/.config/BanjoRecompiled/saves`
+- macOS: `~/Library/Application Support/BanjoRecompiled/saves`
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+#### How do I choose a different ROM?
+**You don't.** This project is **only** a port of Banjo-Kazooie, and it will only accept one specific ROM: the US 1.0 version of the N64 release of Banjo-Kazooie. ROMs in formats other than .z64 will be automatically converted, as long as it is the correct ROM. **This is not an emulator, and it cannot run any arbitrary ROM.**
 
-## License
-For open source projects, say how it is licensed.
+Instead, you can change the game by installing mods. See the [mod support](#mod-support) section for details.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+#### Can you run this project as a portable application?
+Yes, if you place a file named `portable.txt` in the same folder as the executable then this project will run in portable mode. In portable mode, the save files, config files, and mods are placed in the same folder as the executable.
+
+#### Were the duplicate Mumbo token IDs in the original game fixed?
+Yes. The incorrect Mumbo tokens now use previously unused token IDs. This won't affect mods that replace levels.
+
+#### Does note saving have the same issue as the XBLA version where it collects notes during Bottles' puzzles and prevents you from getting 100% completion?
+No. Care has been taken to ensure that notes are not saved during demos. 
+
+## Known Issues
+* Overlays such as MSI Afterburner and other software such as Wallpaper Engine can cause performance issues with this project that prevent the game from rendering correctly. Disabling such software is recommended.
+
+## Building
+Building is not required to play this project, as prebuilt binaries (which do not contain game assets) can be found in the [Releases](https://github.com/BanjoRecomp/BanjoRecomp/releases) section. Instructions on how to build this project can be found in the [BUILDING.md](BUILDING.md) file.
+
+## Libraries Used and Projects Referenced
+* [N64Recomp](https://github.com/N64Recomp/N64Recomp) for statically recompiling the game's code to run natively
+* [RT64](https://github.com/rt64/rt64) for the project's rendering engine
+* [N64ModernRuntime](https://github.com/N64Recomp/N64ModernRuntime) for replacing the original N64 runtime libraries and providing mod support
+* [RecompFrontend](https://github.com/N64Recomp/RecompFrontend) for menus and input handling
+* [Banjo-Kazooie Decompilation](https://gitlab.com/banjo.decomp/banjo-kazooie) for headers and some function definitions, used for making patches or some enhancements

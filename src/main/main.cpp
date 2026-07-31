@@ -374,15 +374,15 @@ gpr get_entrypoint_address();
 std::vector<recomp::GameEntry> supported_games = {
     {
         .rom_hash = 0x1B67585D56E07F8CULL,
-        .internal_name = "Banjo-Kazooie",
-        .display_name = "Banjo-Kazooie",
-        .game_id = u8"bk.n64.us.1.0",
-        .mod_game_id = "bk",
+        .internal_name = "Extreme-G",
+        .display_name = "Extreme-G: Recompiled",
+        .game_id = u8"eg.n64.us",
+        .mod_game_id = "eg",
         // Eep16k instead of Eep4k to have room for extra save file data.
         .save_type = recomp::SaveType::Eep16k,
         .thumbnail_bytes = std::span<const char>(icon_bytes),
         .is_enabled = false,
-        .decompression_routine = banjo::decompress_bk,
+        .decompression_routine = nullptr,
         .has_compressed_code = true,
         .entrypoint_address = get_entrypoint_address(),
         .entrypoint = recomp_entrypoint,

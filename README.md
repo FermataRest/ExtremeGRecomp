@@ -1,7 +1,7 @@
-# Banjo: Recompiled
-Banjo: Recompiled is a project that uses [N64: Recompiled](https://github.com/N64Recomp/N64Recomp) to **statically recompile** Banjo-Kazooie into a native port with many new features, enhancements, and extensive mod support. This project uses [RT64](https://github.com/rt64/rt64) as the rendering engine to provide graphical enhancements.
+# Extreme-G: Recompiled
+Extreme-G: Recompiled is a project that uses [N64: Recompiled](https://github.com/N64Recomp/N64Recomp) to **statically recompile** Extreme-G into a native port with many new features, enhancements, and extensive mod support. This project uses [RT64](https://github.com/rt64/rt64) as the rendering engine to provide graphical enhancements.
 
-### [Check out the latest release here](https://github.com/BanjoRecomp/BanjoRecomp/releases/latest).
+### [Check out the latest release here](https://github.com/ExtremeGRecomp/ExtremeGRecomp/releases/latest).
 
 Join the [N64: Recompiled Community Discord](https://discord.gg/AWZThJ4dPf) to discuss this and other N64: Recompiled projects!
 
@@ -68,7 +68,7 @@ Install community made mods and texture packs! Mods can change any part of the g
 
 Many mods are available on the project's Thunderstore page: https://thunderstore.io/c/banjo-recompiled/. The Thunderstore mod manager/r2modman is not required or supported, so simply download the mods directly from the website.
 
-If you're interested in making mods for this project, check out [the mod template](https://github.com/BanjoRecomp/BKRecompModTemplate) and [the modding documentation](https://hackmd.io/fMDiGEJ9TBSjomuZZOgzNg). If you're interested in making texture packs, check out [the RT64 documentation](https://github.com/rt64/rt64/blob/main/TEXTURE-PACKS.md). You can also join the [N64: Recompiled Modding Discord server](https://discord.gg/Z8Nbm455D4).
+If you're interested in making mods for this project, check out [the mod template](https://github.com/ExtremeGRecomp/BKRecompModTemplate) and [the modding documentation](https://hackmd.io/fMDiGEJ9TBSjomuZZOgzNg). If you're interested in making texture packs, check out [the RT64 documentation](https://github.com/rt64/rt64/blob/main/TEXTURE-PACKS.md). You can also join the [N64: Recompiled Modding Discord server](https://discord.gg/Z8Nbm455D4).
 
 #### Dual Analog Camera
 Play with a dual analog control for finer camera control! When this option is enabled, the right analog stick will control the camera. Buttons mapped to the right analog stick will still work while crouching, so you can keep the C-buttons mapped to it even when this setting is enabled.
@@ -87,7 +87,7 @@ Saving and loading files, going from place to place, and pausing all happen in t
 #### Linux and Steam Deck Support
 A Linux binary as well as a Flatpak is available for playing on most up-to-date distros, including on the Steam Deck.
 
-To play on Steam Deck, extract the Linux build onto your deck. Then, in desktop mode, right click the BanjoRecompiled executable file and select "Add to Steam". From there, you can return to Gaming mode and configure the controls as needed.
+To play on Steam Deck, extract the Linux build onto your deck. Then, in desktop mode, right click the ExtremeGRecompiled executable file and select "Add to Steam". From there, you can return to Gaming mode and configure the controls as needed.
 
 ## Planned Features
 * Ray Tracing via RT64
@@ -101,12 +101,12 @@ Static recompilation is the process of automatically translating an application 
 Unlike N64 ports in the past, this project is not based on the source code provided by a decompilation of the game. This is because static recompilation bypasses the need for decompiled source code when making a port, allowing ports to be made **without source code**. However, the reverse engineering work done by the decompilation team was invaluable for providing some of the enhancements featured in this project. For this reason, the project uses headers and some functions from the decompilation project in order to make modifications to the game. Many thanks to the decompilation team for all of the hard work they've done.
 
 #### Where is the savefile stored?
-- Windows: `%LOCALAPPDATA%\BanjoRecompiled\saves`
-- Linux: `~/.config/BanjoRecompiled/saves`
-- macOS: `~/Library/Application Support/BanjoRecompiled/saves`
+- Windows: `%LOCALAPPDATA%\ExtremeGRecompiled\saves`
+- Linux: `~/.config/ExtremeGRecompiled/saves`
+- macOS: `~/Library/Application Support/ExtremeGRecompiled/saves`
 
 #### How do I choose a different ROM?
-**You don't.** This project is **only** a port of Banjo-Kazooie, and it will only accept one specific ROM: the US 1.0 version of the N64 release of Banjo-Kazooie. ROMs in formats other than .z64 will be automatically converted, as long as it is the correct ROM. **This is not an emulator, and it cannot run any arbitrary ROM.**
+**You don't.** This project is **only** a port of Extreme-G, and it will only accept one specific ROM: the US 1.0 version of the N64 release of Extreme-G. ROMs in formats other than .z64 will be automatically converted, as long as it is the correct ROM. **This is not an emulator, and it cannot run any arbitrary ROM.**
 
 Instead, you can change the game by installing mods. See the [mod support](#mod-support) section for details.
 
@@ -123,11 +123,11 @@ No. Care has been taken to ensure that notes are not saved during demos.
 * Overlays such as MSI Afterburner and other software such as Wallpaper Engine can cause performance issues with this project that prevent the game from rendering correctly. Disabling such software is recommended.
 
 ## Building
-Building is not required to play this project, as prebuilt binaries (which do not contain game assets) can be found in the [Releases](https://github.com/BanjoRecomp/BanjoRecomp/releases) section. Instructions on how to build this project can be found in the [BUILDING.md](BUILDING.md) file.
+Building is not required to play this project, as prebuilt binaries (which do not contain game assets) can be found in the [Releases](https://github.com/ExtremeGRecomp/ExtremeGRecomp/releases) section. Instructions on how to build this project can be found in the [BUILDING.md](BUILDING.md) file.
 
 ## Libraries Used and Projects Referenced
 * [N64Recomp](https://github.com/N64Recomp/N64Recomp) for statically recompiling the game's code to run natively
 * [RT64](https://github.com/rt64/rt64) for the project's rendering engine
 * [N64ModernRuntime](https://github.com/N64Recomp/N64ModernRuntime) for replacing the original N64 runtime libraries and providing mod support
 * [RecompFrontend](https://github.com/N64Recomp/RecompFrontend) for menus and input handling
-* [Banjo-Kazooie Decompilation](https://gitlab.com/banjo.decomp/banjo-kazooie) for headers and some function definitions, used for making patches or some enhancements
+* [Extreme-G Decompilation](https://gitlab.com/banjo.decomp/Extreme-G) for headers and some function definitions, used for making patches or some enhancements

@@ -22,9 +22,7 @@ void osWriteBackDCacheAll(void);
 #define bzero bzero_recomp
 #define bcopy bcopy_recomp
 #define osDpSetStatus osDpSetStatus_recomp
-#define malloc malloc_recomp
 #define free free_recomp
-#define realloc realloc_recomp
 #define memcpy memcpy_recomp
 #define strchr strchr_recomp
 #define strlen strlen_recomp

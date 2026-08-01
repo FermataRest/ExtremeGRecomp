@@ -16,6 +16,33 @@
 #include "ultramodern/config.hpp"
 #include "../lib/N64ModernRuntime/thirdparty/xxHash/xxh3.h"
 
+
+extern "C" void osPfsIsPlug_recomp(uint8_t * rdram, recomp_context* ctx) {
+    ctx->r2 = 1; // PFS_ERR_NOPACK
+}
+
+extern "C" void osPfsReSizeFile(uint8_t * rdram, recomp_context* ctx) {
+    ctx->r2 = 1; // PFS_ERR_NOPACK
+}
+
+extern "C" void func_800762A4(uint8_t * rdram, recomp_context* ctx) {
+}
+
+extern "C" void func_800762C0(uint8_t * rdram, recomp_context* ctx) {
+}
+
+extern "C" void boot_osPiRawStartDma(uint8_t* rdram, recomp_context* ctx) {
+    uint32_t direction = ctx->r4;
+    uint32_t device_address = ctx->r5;
+    gpr rdram_address = ctx->r6;
+    uint32_t size = ctx->r7;
+
+    assert(direction == 0); // Only reads
+
+    // Complete the DMA synchronously (the game immediately waits until it's done anyways)
+    recomp::do_rom_read(rdram, rdram_address, device_address + recomp::rom_base, size);
+}
+
 extern "C" void recomp_update_inputs(uint8_t* rdram, recomp_context* ctx) {
     recompinput::poll_inputs();
 }

@@ -18,7 +18,7 @@
   ],
   "modules": [
     {
-      "name": "BanjoRecompiled",
+      "name": "ExtremeGRecompiled",
       "buildsystem": "simple",
       "build-commands": [
         "cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_MAKE_PROGRAM=ninja -G Ninja -S lib/N64Recomp -B lib/N64Recomp/cmake-build",
@@ -29,10 +29,10 @@
         "./N64Recomp banjo.us.rev0.toml",
         "./RSPRecomp n_aspMain.us.rev0.toml",
         "cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_MAKE_PROGRAM=ninja -DPATCHES_C_COMPILER=clang -DPATCHES_LD=ld.lld -DRECOMP_FLATPAK=ON -G Ninja -S . -B cmake-build",
-        "cmake --build cmake-build --config Release --target BanjoRecompiled --parallel",
+        "cmake --build cmake-build --config Release --target ExtremeGRecompiled --parallel",
         "rm -rf assets/scss",
         "mkdir -p /app/bin",
-        "cp cmake-build/BanjoRecompiled /app/bin/BanjoRecompiled",
+        "cp cmake-build/ExtremeGRecompiled /app/bin/ExtremeGRecompiled",
         "cp recompcontrollerdb.txt /app/bin/recompcontrollerdb.txt",
         "cp -R assets /app/bin/assets",
         "install -Dm644 icons/app.png /app/share/icons/hicolor/512x512/apps/${FLATPAK_ID}.png",

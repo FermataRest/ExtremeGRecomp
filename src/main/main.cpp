@@ -166,7 +166,7 @@ ultramodern::renderer::WindowHandle create_window(ultramodern::gfx_callbacks_t::
     flags |= SDL_WINDOW_VULKAN;
 #endif
 
-    window = SDL_CreateWindow("Banjo: Recompiled", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1600, 900,  flags);
+    window = SDL_CreateWindow("Extreme G: Recompiled", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1600, 900,  flags);
 
     if (window == nullptr) {
         exit_error("Failed to create window: %s\n", SDL_GetError());
@@ -354,12 +354,12 @@ bool reset_audio(uint32_t output_freq) {
     return true;
 }
 
-extern RspUcodeFunc n_aspMain;
+extern RspUcodeFunc aspMain;
 
 RspUcodeFunc* get_rsp_microcode(const OSTask* task) {
     switch (task->t.type) {
     case M_AUDTASK:
-        return n_aspMain;
+        return aspMain;
 
     default:
         fprintf(stderr, "Unknown task: %" PRIu32 "\n", task->t.type);
@@ -373,7 +373,7 @@ gpr get_entrypoint_address();
 // array of supported GameEntry objects
 std::vector<recomp::GameEntry> supported_games = {
     {
-        .rom_hash = 0x1B67585D56E07F8CULL,
+        .rom_hash = 0x6b9b04558bdf6377ULL,
         .internal_name = "Extreme-G",
         .display_name = "Extreme-G: Recompiled",
         .game_id = u8"eg.n64.us",
@@ -740,7 +740,7 @@ int main(int argc, char** argv) {
     // Register extensions for two types: Props and ActorMarkers.
     recomputil::init_extended_object_data(2);
 
-    recompinput::players::set_single_player_mode(true);
+    recompinput::players::set_single_player_mode(false);
 
     banjo::init_config();
 
@@ -803,18 +803,21 @@ int main(int argc, char** argv) {
     // Register the .rtz texture pack file format with the previous content type as its only allowed content type.
     recomp::mods::register_mod_container_type("rtz", std::vector{ texture_pack_content_type_id }, false);
 
-    recomp::start(
-        project_version,
-        {},
-        rsp_callbacks,
-        renderer_callbacks,
-        audio_callbacks,
-        input_callbacks,
-        gfx_callbacks,
-        thread_callbacks,
-        error_handling_callbacks,
-        threads_callbacks
-    );
+    recomp::Configuration cfg{
+        .project_version = project_version,
+        .window_handle = {},
+        .rsp_callbacks = rsp_callbacks,
+        .renderer_callbacks = renderer_callbacks,
+        .audio_callbacks = audio_callbacks,
+        .input_callbacks = input_callbacks,
+        .gfx_callbacks = gfx_callbacks,
+        .events_callbacks = thread_callbacks,
+        .error_handling_callbacks = error_handling_callbacks,
+        .threads_callbacks = threads_callbacks,
+        .message_queue_control = {},
+    };
+
+    recomp::start(cfg);
 
     NFD_Quit();
 

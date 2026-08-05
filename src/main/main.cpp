@@ -737,10 +737,13 @@ int main(int argc, char** argv) {
     };
 
     ultramodern::renderer::callbacks_t renderer_callbacks{
-        .create_render_context = [](uint8_t* rdram, ultramodern::renderer::WindowHandle window_handle, bool developer_mode) {
-            auto presentation_mode = ultramodern::renderer::PresentationMode::PresentEarly;
-            return recompui::renderer::create_render_context(rdram, window_handle, presentation_mode, developer_mode);
-        },
+        .create_render_context =
+            [](uint8_t* rdram, ultramodern::renderer::WindowHandle window_handle, bool developer_mode) {
+                auto presentation_mode = ultramodern::renderer::PresentationMode::PresentEarly;
+                std::unique_ptr<recompui::renderer::RT64Context> render_context =
+                    recompui::renderer::create_render_context(rdram, window_handle, presentation_mode, developer_mode);
+                return std::unique_ptr<ultramodern::renderer::RendererContext>(std::move(render_context));
+            },
     };
 
     ultramodern::gfx_callbacks_t gfx_callbacks{

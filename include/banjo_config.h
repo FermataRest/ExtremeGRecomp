@@ -28,6 +28,7 @@ namespace banjo {
 
         namespace graphics {
             inline const std::string cutscene_aspect_ratio_mode = "cutscene_aspect_ratio_mode";
+            inline const std::string native_framerate_mode = "native_framerate_mode";
         }
     }
 
@@ -89,7 +90,14 @@ namespace banjo {
         OptionCount
     };
 
+    enum class NativeFrameRateMode {
+        _30_FPS,
+        _60_FPS,
+        OptionCount
+    };
+
     CutsceneAspectRatioMode get_cutscene_aspect_ratio_mode();
+    NativeFrameRateMode get_native_framerate_mode();
 
     void open_quit_game_prompt();
 };

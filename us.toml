@@ -12,25 +12,24 @@ output_func_path = "RecompiledFuncs"
 
 [patches]
 stubs = [
-]
-
-ignored = [
     "func_800761C0",
     "func_800762F4",
-    "aspMainTextStart",
-    "func_8004B744",
-    "Decompress_ClearCache",
-    "gspL3DEX_fifoTextStart",
-    "gspF3DLX_fifoTextStart",
-   # "Boot_Setup", ################## recheck
     "func_80076708",
     "func_80076644",
     "func_80076188",
     "func_800762A4",
-    "func_8006A3BC",
     "func_800762C0",
-    "xldtob_rodata_0058",
     "osPfsReSizeFile",
+]
+
+ignored = [
+    "aspMainTextStart",
+    "func_8004B744", # This is data in the rom, currently marked as text for matching reasons.
+    "Decompress_ClearCache", # Not needed, has cache instruction in it.
+    "gspL3DEX_fifoTextStart",
+    "gspF3DLX_fifoTextStart",
+   # "Boot_Setup", ################## recheck
+    "xldtob_rodata_0058",
     "__osPfsReleasePages",
     "__osBlockSum",
     "__osPfsDeclearPage",
@@ -153,17 +152,59 @@ func = "func_80061124"
 vram = 0x80061124
 value = 0x00000000 # nop
 
-# [[patches.instruction]]
-# func = "func_80060E84"
-# vram = 0x80060E84
-# value = 0x00000000 # nop
+# CHEATS
 
-# HitCount Cap to 999 instead of 511
+# Native Framerate Option, it doesn't seem to be altering gameplay
+# 8005414B 0002
+[[patches.instruction]]
+func = "func_80053978"
+vram = 0x80054148
+value = 0x0
+[[patches.hook]]
+func = "func_80053978"
+text = "gpr temp_r2 = ctx->r2; recomp_get_native_framerate_config(rdram, ctx); ctx->r3 = ADD32(ctx->r3, ctx->r2); ctx->r2 = temp_r2;"
+before_vram = 0x80054148
+
+# Draw Distance Patches
+# 8106DD6A 4080
+# 8106DE36 4050
+[[patches.instruction]]
+func = "func_8006DC64"
+vram = 0x8006DD68
+value = 0x3C054000
+[[patches.instruction]]
+func = "func_8006DC64"
+vram = 0x8006DE34
+value = 0x3C054050
+[[patches.instruction]]
+func = "func_8006DC64"
+vram = 0x8006EADC
+value = 0x3C054050
+[[patches.instruction]]
+func = "func_8006DC64"
+vram = 0x8006EBC0
+value = 0x3C054010
+[[patches.instruction]]
+func = "func_8006DC64"
+vram = 0x8006ECD8
+value = 0x3C054010
+[[patches.instruction]]
+func = "func_8006DC64"
+vram = 0x8006E380
+value = 0x3C054020
+[[patches.instruction]]
+func = "func_8006DC64"
+vram = 0x8006E470
+value = 0x3C054020
+[[patches.instruction]]
+func = "func_8006DC64"
+vram = 0x8006E588
+value = 0x3C054020
+[[patches.instruction]]
+func = "func_8006DC64"
+vram = 0x8006E678
+value = 0x3C054020
 # [[patches.instruction]]
-# func = "Display_Update"
-# vram = 0x80057D50
-# value = 0x290103E8 # slti  $at, $t0, 0x200 -> slti $at, $t0, 0x3E8
-# [[patches.instruction]]
-# func = "Display_Update"
-# vram = 0x80057D5C
-# value = 0x240903E7 # addiu t1,zero, 0x1ff -> addiu t1,zero,0x3e7
+# func = "func_8006B1AC"
+# vram = 0x8006B620
+# value = 0x34DD0000

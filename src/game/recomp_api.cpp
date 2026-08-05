@@ -16,21 +16,6 @@
 #include "ultramodern/config.hpp"
 #include "../lib/N64ModernRuntime/thirdparty/xxHash/xxh3.h"
 
-
-extern "C" void osPfsIsPlug_recomp(uint8_t * rdram, recomp_context* ctx) {
-    ctx->r2 = 1; // PFS_ERR_NOPACK
-}
-
-extern "C" void osPfsReSizeFile(uint8_t * rdram, recomp_context* ctx) {
-    ctx->r2 = 1; // PFS_ERR_NOPACK
-}
-
-extern "C" void func_800762A4(uint8_t * rdram, recomp_context* ctx) {
-}
-
-extern "C" void func_800762C0(uint8_t * rdram, recomp_context* ctx) {
-}
-
 extern "C" void boot_osPiRawStartDma(uint8_t* rdram, recomp_context* ctx) {
     uint32_t direction = ctx->r4;
     uint32_t device_address = ctx->r5;
@@ -144,6 +129,18 @@ extern "C" void recomp_get_cutscene_aspect_ratio(uint8_t *rdram, recomp_context 
             return;
         case banjo::CutsceneAspectRatioMode::Full:
             _return(ctx, std::max(static_cast<float>(width) / height, original));
+            return;
+    }
+}
+
+extern "C" void recomp_get_native_framerate_config(uint8_t *rdram, recomp_context *ctx) {
+    switch (banjo::get_native_framerate_mode()) {
+        case banjo::NativeFrameRateMode::_60_FPS:
+            _return(ctx, 2);
+            return;
+        default:
+        case banjo::NativeFrameRateMode::_30_FPS:
+            _return(ctx, 1);
             return;
     }
 }
@@ -276,10 +273,6 @@ extern "C" void osPiReadIo_recomp(RDRAM_ARG recomp_context * ctx) {
     }
 
     ctx->r2 = 0;
-}
-
-extern "C" void osPfsInit_recomp(uint8_t * rdram, recomp_context* ctx) {
-    ctx->r2 = 11; // PFS_ERR_DEVICE
 }
 
 // u32 rom_addr, void *ram_addr, u32 size

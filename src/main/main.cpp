@@ -91,12 +91,12 @@ ultramodern::gfx_callbacks_t::gfx_data_t create_gfx() {
 
     return {};
 }
-
+/*
 ultramodern::input::connected_device_info_t get_connected_device_info(int controller_num) {
     if (recompinput::players::is_single_player_mode() || recompinput::players::get_player_is_assigned(controller_num)) {
         return ultramodern::input::connected_device_info_t{
             .connected_device = ultramodern::input::Device::Controller,
-            .connected_pak = ultramodern::input::Pak::RumblePak,
+            .connected_pak = ultramodern::input::Pak::ControllerPak,
         };
     }
 
@@ -105,7 +105,21 @@ ultramodern::input::connected_device_info_t get_connected_device_info(int contro
         .connected_pak = ultramodern::input::Pak::None,
     };
 }
+*/
+ultramodern::input::connected_device_info_t get_connected_device_info(int controller_num) {
+    bool singleplayer = recompinput::players::is_single_player_mode();
+    if ((singleplayer && controller_num == 0) || (!singleplayer && recompinput::players::get_player_is_assigned(controller_num))) {
+        return ultramodern::input::connected_device_info_t{
+            .connected_device = ultramodern::input::Device::Controller,
+            .connected_pak = ultramodern::input::Pak::ControllerPak,
+        };
+    }
 
+    return ultramodern::input::connected_device_info_t{
+        .connected_device = ultramodern::input::Device::None,
+        .connected_pak = ultramodern::input::Pak::None,
+    };
+}
 #include "icon_bytes.h"
 
 #if defined(__gnu_linux__)
@@ -373,7 +387,7 @@ gpr get_entrypoint_address();
 // array of supported GameEntry objects
 std::vector<recomp::GameEntry> supported_games = {
     {
-        .rom_hash = 0x6b9b04558bdf6377ULL,
+        .rom_hash = 0x91362405f32ee7eaULL,
         .internal_name = "Extreme-G",
         .display_name = "Extreme-G: Recompiled",
         .game_id = u8"eg.n64.us",
@@ -692,7 +706,8 @@ int main(int argc, char** argv) {
     REGISTER_FUNC(recomp_get_window_resolution);
     REGISTER_FUNC(recomp_get_target_aspect_ratio);
     REGISTER_FUNC(recomp_get_target_framerate);
-    REGISTER_FUNC(recomp_get_cutscene_aspect_ratio);
+    // REGISTER_FUNC(recomp_get_cutscene_aspect_ratio);
+    REGISTER_FUNC(recomp_get_native_framerate_config);
     REGISTER_FUNC(recomp_get_analog_cam_enabled);
     REGISTER_FUNC(recomp_get_right_analog_inputs);
     REGISTER_FUNC(recomp_get_bgm_volume);

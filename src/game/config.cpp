@@ -5,7 +5,7 @@
 #include "banjo_sound.h"
 #include "banjo_support.h"
 #include "ultramodern/config.hpp"
-#include "librecomp/files.hpp"
+#include "ultramodern/files.hpp"
 #include "librecomp/config.hpp"
 #include "util/file.h"
 #include <filesystem>
@@ -163,6 +163,7 @@ int banjo::get_bgm_volume() {
 
 static void add_graphics_options(recomp::config::Config &config) {
     using EnumOptionVector = const std::vector<recomp::config::ConfigOptionEnumOption>;
+    #if 0
     static EnumOptionVector cutscene_aspect_ratio_mode_options = {
         {banjo::CutsceneAspectRatioMode::Original, "Original", "Original"},
         {banjo::CutsceneAspectRatioMode::Clamp16x9, "Clamp16x9", "16:9"},
@@ -174,7 +175,20 @@ static void add_graphics_options(recomp::config::Config &config) {
         "Sets the aspect ratio limit for cutscenes. Cutscenes have been adjusted to work in <recomp-color primary>16:9</recomp-color>, which is the default option. Wider aspect ratios may show details that weren't meant to be on-screen.",
         cutscene_aspect_ratio_mode_options,
         banjo::CutsceneAspectRatioMode::Clamp16x9
-    );    
+    );
+    #endif
+
+    static EnumOptionVector native_framerate_mode_options = {
+        {banjo::NativeFrameRateMode::_30_FPS, "30 FPS", "30 FPS"},
+        {banjo::NativeFrameRateMode::_60_FPS, "60 FPS", "60 FPS"},
+    };
+    config.add_enum_option(
+        banjo::configkeys::graphics::native_framerate_mode,
+        "Internal Framerate",
+        "Sets the internal framerate of the game, 30 FPS is the default and matches the original game, 60 FPS can improve responsiveness at the expense of performance",
+        native_framerate_mode_options,
+        banjo::NativeFrameRateMode::_30_FPS
+    );
 }
 
 static void set_control_defaults() {
@@ -243,6 +257,10 @@ static void set_control_descriptions() {
 
 banjo::CutsceneAspectRatioMode banjo::get_cutscene_aspect_ratio_mode() {
     return get_graphics_config_enum_value<banjo::CutsceneAspectRatioMode>(banjo::configkeys::graphics::cutscene_aspect_ratio_mode);
+}
+
+banjo::NativeFrameRateMode banjo::get_native_framerate_mode() {
+    return get_graphics_config_enum_value<banjo::NativeFrameRateMode>(banjo::configkeys::graphics::native_framerate_mode);
 }
 
 void banjo::init_config() {

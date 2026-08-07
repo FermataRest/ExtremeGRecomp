@@ -10,3 +10,6 @@
 [submodule "ExtremeGRecompSyms"]
 	path = ExtremeGRecompSyms
 	url = https://gitlab.com/sonicdcer/ExtremeGRecompSyms.git
+[submodule "lib/ultralib"]
+	path = lib/ultralib
+	url = https://github.com/decompals/ultralib.git

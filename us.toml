@@ -165,6 +165,10 @@ value = 0x0
 func = "func_80053978"
 text = "gpr temp_r2 = ctx->r2; recomp_get_native_framerate_config(rdram, ctx); ctx->r3 = ADD32(ctx->r3, ctx->r2); ctx->r2 = temp_r2;"
 before_vram = 0x80054148
+[[patches.hook]]
+func = "func_800E7900"
+text = "menu_bike_select_fill_background(rdram, ctx);"
+before_vram = 0x800E7900
 
 # Draw Distance Patches
 # 8106DD6A 4080

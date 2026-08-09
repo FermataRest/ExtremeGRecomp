@@ -9,7 +9,7 @@ s32 osViGetCurrentFramebuffer_recomp(void);
 					 (((g)<<3) & 0x7c0) |		\
 					 (((b)>>2) & 0x3e) | ((a) & 0x1))
 
-#if 1
+#if 0
 extern Gfx* D_801689EC[]; // gMasterDisp
 
 void menu_bike_select_fill_background(void) {
@@ -31,3 +31,13 @@ void menu_bike_select_fill_background(void) {
     gDPPipeSync((*gdl)++);
 }
 #endif
+
+#define RECOMP_PATCH __attribute__((section(".recomp_patch")))
+
+float roundf(float x)
+{
+    if (x >= 0.0f)
+        return (float)(int)(x + 0.5f);
+    else
+        return (float)(int)(x - 0.5f);
+}

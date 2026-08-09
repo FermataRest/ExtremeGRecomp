@@ -153,7 +153,6 @@ func = "func_80061124"
 vram = 0x80061124
 value = 0x00000000 # nop
 
-# CHEATS
 
 # Native Framerate Option, it doesn't seem to be altering gameplay
 # 8005414B 0002
@@ -165,14 +164,43 @@ value = 0x0
 func = "func_80053978"
 text = "gpr temp_r2 = ctx->r2; recomp_get_native_framerate_config(rdram, ctx); ctx->r3 = ADD32(ctx->r3, ctx->r2); ctx->r2 = temp_r2;"
 before_vram = 0x80054148
-[[patches.hook]]
-func = "func_800E7900"
-text = "menu_bike_select_fill_background(rdram, ctx);"
-before_vram = 0x800E7900
+
+# [[patches.hook]]
+# func = "func_800E7900"
+# text = "menu_bike_select_fill_background(rdram, ctx);"
+# before_vram = 0x800E7900
+
+# Fix for the menu transitions, not working very well
+# [[patches.instruction]]
+# func = "func_800E0734"
+# vram = 0x800E0AD4
+# value = 0xA4890020
+# [[patches.instruction]]
+# func = "func_800E0734"
+# vram = 0x800E0A54
+# value = 0xAC87001C
+# [[patches.instruction]]
+# func = "func_800E0734"
+# vram = 0x800E099C
+# value = 0xAC850028
 
 # Draw Distance Patches
-# 8106DD6A 4080
-# 8106DE36 4050
+# 8005414B 0002 // 60 fps
+# 8106DD6A 4080 // patched 
+# 8106DE36 4050 // patched 
+# 8104C49C 4050 // This is data
+# 8106EADE 4050 // patched
+# 8106EBC2 4010
+# 8106ECDA 4010
+# 8106E382 4020
+# 8106E472 4020
+# 8106E58A 4020
+# 8106E67A 4020
+# 8106B622 DD00 <== TODO: check after this one (inclusive)
+# D117AA3A 0004
+# 8106B622 F400
+# D117AA3A 0003
+# 8106B622 E000
 [[patches.instruction]]
 func = "func_8006DC64"
 vram = 0x8006DD68

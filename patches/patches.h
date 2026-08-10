@@ -1,6 +1,10 @@
 #ifndef __PATCHES_H__
 #define __PATCHES_H__
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wvisibility"
+#pragma GCC diagnostic pop
+
 #define RECOMP_EXPORT __attribute__((section(".recomp_export")))
 #define RECOMP_PATCH __attribute__((section(".recomp_patch")))
 #define RECOMP_FORCE_PATCH __attribute__((section(".recomp_force_patch")))
@@ -33,11 +37,11 @@ void osWriteBackDCacheAll(void);
 #define osContGetReadData osContGetReadData_recomp
 
 #include "ultra64.h"
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wvisibility"
-#include "structs.h"
-#pragma GCC diagnostic pop
+#include "mbi.h"
+#include "gbi.h"
+#include "os.h"
 #include "rt64_extended_gbi.h"
+#include "graphics.h"
 
 #ifndef ARRLEN
 #   define ARRLEN(x) ((s32)(sizeof(x) / sizeof(x[0])))

@@ -1,43 +1,33 @@
-#include "ultratypes.h"
-#include "mbi.h"
-#include "gbi.h"
-#include "os.h"
+#include "patches.h"
 
-s32 osViGetCurrentFramebuffer_recomp(void);
+extern s32 D_8017A908; // Demo transition effect
 
-#define	GPACK_RGBA5551(r, g, b, a)	((((r)<<8) & 0xf800) | 		\
-					 (((g)<<3) & 0x7c0) |		\
-					 (((b)>>2) & 0x3e) | ((a) & 0x1))
+// Patch demo transitions so 4/3 only transitions don't get used in widescreen
+void extreme_g_widescreen_transition_fix(void) {
+    const f32 original_aspect = 4.0f / 3.0f;
+    const f32 target_aspect = recomp_get_target_aspect_ratio(original_aspect);
 
-#if 0
-extern Gfx* D_801689EC[]; // gMasterDisp
+    if (target_aspect <= original_aspect) {
+        return;
+    }
 
-void menu_bike_select_fill_background(void) {
-    Gfx** gdl = D_801689EC;
-    u32 width = 320;
-    u32 height = 240;
+    switch (D_8017A908) {
+        // Force effects 0, 1, 4, 5 to use effect 2
+        case 0:
+        case 1:
+        case 4:
+        case 5:
+            D_8017A908 = 2;
+            break;
 
-    u8 red = 0;
-    u8 green = 0;
-    u8 blue = 0;
+        // Force effects 6, 7 and 8 to use effect 3
+        case 6:
+        case 7:
+        case 8:
+            D_8017A908 = 3;
+            break;
 
-    u32 fill_color = GPACK_RGBA5551(red, green, blue, 1);
-
-    gDPPipeSync((*gdl)++);
-    gDPSetCycleType((*gdl)++, G_CYC_FILL);
-    gDPSetColorImage((*gdl)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, width, osViGetCurrentFramebuffer_recomp());
-    gDPSetFillColor((*gdl)++, (fill_color << 16) | fill_color);
-    gDPFillRectangle((*gdl)++, 0, 0, width, height);
-    gDPPipeSync((*gdl)++);
-}
-#endif
-
-#define RECOMP_PATCH __attribute__((section(".recomp_patch")))
-
-float roundf(float x)
-{
-    if (x >= 0.0f)
-        return (float)(int)(x + 0.5f);
-    else
-        return (float)(int)(x - 0.5f);
+        default:
+            break;
+    }
 }

@@ -153,7 +153,6 @@ func = "func_80061124"
 vram = 0x80061124
 value = 0x00000000 # nop
 
-
 # Native Framerate Option, it doesn't seem to be altering gameplay
 # 8005414B 0002
 [[patches.instruction]]
@@ -165,10 +164,11 @@ func = "func_80053978"
 text = "gpr temp_r2 = ctx->r2; recomp_get_native_framerate_config(rdram, ctx); ctx->r3 = ADD32(ctx->r3, ctx->r2); ctx->r2 = temp_r2;"
 before_vram = 0x80054148
 
-# [[patches.hook]]
-# func = "func_800E7900"
-# text = "menu_bike_select_fill_background(rdram, ctx);"
-# before_vram = 0x800E7900
+# hook for widescreen demo transitions
+[[patches.hook]]
+func = "func_800D9F30"
+text = "extreme_g_widescreen_transition_fix(rdram, ctx);"
+before_vram = 0x800D9F30
 
 # Fix for the menu transitions, not working very well
 # [[patches.instruction]]
@@ -241,3 +241,4 @@ value = 0x3C054020
 # func = "func_8006B1AC"
 # vram = 0x8006B620
 # value = 0x34DD0000
+

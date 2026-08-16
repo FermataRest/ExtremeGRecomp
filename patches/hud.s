@@ -8,8 +8,6 @@
 .section .recomp_patch, "ax"
 
 glabel HUD_Draw
-    jal HUD_Draw_HOOK
-    nop
     jal EG_gEXEnable
     nop
     jal EG_gEXSetScissor

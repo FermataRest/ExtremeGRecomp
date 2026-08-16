@@ -3,7 +3,7 @@
 extern s32 D_8017A908; // Demo transition effect
 
 // Patch demo transitions so 4/3 only transitions don't get used in widescreen
-void extreme_g_widescreen_transition_fix(void) {
+void demo_widescreen_transition_fix(void) {
     const f32 original_aspect = 4.0f / 3.0f;
     const f32 target_aspect = recomp_get_target_aspect_ratio(original_aspect);
 

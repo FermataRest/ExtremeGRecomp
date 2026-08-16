@@ -4,7 +4,7 @@ entrypoint = 0x8004b400
 rom = 0x800000
 # Paths are relative to the location of this config file.
 # elf_path = "extremeg.us.elf"
-symbols_file_path = "dump.toml"
+symbols_file_path = "ExtremeGRecompSyms/extremeg.us.syms.toml"
 rom_file_path = "extremeg.us.uncompressed.z64"
 output_func_path = "RecompiledFuncs"
 trace_mode = true

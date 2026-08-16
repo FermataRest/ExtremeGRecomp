@@ -9,8 +9,8 @@
 
 glabel NameEntry_CheckForCheats
     /* 88FF28 800DB328 27BDFFD0 */  addiu      $sp, $sp, -0x30
-    /* 88FF2C 800DB32C 3C048011 */  lui        $a0, %hi(Cheats)
-    /* 88FF30 800DB330 2484C45C */  addiu      $a0, $a0, %lo(Cheats)
+    /* 88FF2C 800DB32C 3C048011 */  lui        $a0, %hi(gCheatList)
+    /* 88FF30 800DB330 2484C45C */  addiu      $a0, $a0, %lo(gCheatList)
     /* 88FF34 800DB334 AFBF002C */  sw         $ra, 0x2C($sp)
     /* 88FF38 800DB338 AFB20028 */  sw         $s2, 0x28($sp)
     /* 88FF3C 800DB33C AFB10024 */  sw         $s1, 0x24($sp)
@@ -93,11 +93,11 @@ glabel NameEntry_CheckForCheats
     /* 89003C 800DB43C 08036D19 */  j          .L800DB464
     /* 890040 800DB440 24020001 */   addiu     $v0, $zero, 0x1
   .L800DB444:
-    /* 890044 800DB444 3C018011 */  lui        $at, %hi(Cheats)
+    /* 890044 800DB444 3C018011 */  lui        $at, %hi(gCheatList)
     /* 890048 800DB448 00270821 */  addu       $at, $at, $a3
-    /* 89004C 800DB44C 8C22C45C */  lw         $v0, %lo(Cheats)($at)
-    /* 890050 800DB450 3C048011 */  lui        $a0, %hi(Cheats)
-    /* 890054 800DB454 2484C45C */  addiu      $a0, $a0, %lo(Cheats)
+    /* 89004C 800DB44C 8C22C45C */  lw         $v0, %lo(gCheatList)($at)
+    /* 890050 800DB450 3C048011 */  lui        $a0, %hi(gCheatList)
+    /* 890054 800DB454 2484C45C */  addiu      $a0, $a0, %lo(gCheatList)
     /* 890058 800DB458 1440FFC1 */  bnez       $v0, .L800DB360
     /* 89005C 800DB45C 26100001 */   addiu     $s0, $s0, 0x1
   .L800DB460:

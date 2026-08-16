@@ -1,9 +1,10 @@
 #include "patches.h"
 
-extern Gfx* gMasterDisp[];extern Vp D_800970B8;
+extern Gfx* gMasterDisp[];
+extern Vp D_800970B8;
 
 void EG_gEXEnable(void) {
-    gEXEnable(gMasterDisp[0]++); 
+    gEXEnable(gMasterDisp[0]++);
 }
 
 void EG_gEXSetScissor(void) {
@@ -15,8 +16,7 @@ void EG_RectAlign_Origin_Left_Left(void) {
 }
 
 void EG_RectAlign_Origin_Right_Right(void) {
-    gEXSetRectAlign(gMasterDisp[0]++, G_EX_ORIGIN_RIGHT, G_EX_ORIGIN_RIGHT, -(320) * 4, 0,
-                        -(320) * 4, 0);
+    gEXSetRectAlign(gMasterDisp[0]++, G_EX_ORIGIN_RIGHT, G_EX_ORIGIN_RIGHT, -(320) * 4, 0, -(320) * 4, 0);
 }
 
 void EG_RectAlign_Origin_None_None(void) {

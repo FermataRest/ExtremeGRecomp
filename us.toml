@@ -122,8 +122,8 @@ before_vram = 0x80068368
 # Draw Distance Patches
 # 8005414B 0002 // 60 fps
 # 8106DD6A 4080 // 8006DD68
-# 8106DE36 4050 // patched 
-# 8104C49C 4050 // This is data
+# 8106DE36 4050 // multiplayer draw distance for P1
+# 8104C49C 4050 // multiplayer draw distance for P2
 # 8106EADE 4050 // patched
 # 8106EBC2 4010
 # 8106ECDA 4010
@@ -137,7 +137,19 @@ before_vram = 0x80068368
 # D117AA3A 0003
 # 8106B622 E000
 
-# Draw Distance Patch for track geometry
+# Draw distance for the 1st player in multiplayer
+[[patches.instruction]]
+func = "func_8006DC64"
+vram = 0x8006DE34
+value = 0x3C054000
+
+# Draw distance for the 2nd player in multiplayer
+[[patches.instruction]]
+func = "func_8006DC64"
+vram = 0x8006DF28
+value = 0x3C054000
+
+# Draw Distance Patch for single player
 [[patches.instruction]]
 func = "func_8006DC64"
 vram = 0x8006DD68
@@ -168,7 +180,7 @@ ctx->r4 = savedR4;
 """
 before_vram = 0x8006DD6C
 
-# Fog distance patch
+# Fog distance patch, affects all players
 [[patches.instruction]]
 func = "func_8006B1AC"
 vram = 0x8006B620
@@ -203,10 +215,6 @@ ctx->r4 = savedR4;
 """
 before_vram = 0x8006B624
 
-[[patches.instruction]]
-func = "func_8006DC64"
-vram = 0x8006DE34
-value = 0x3C054050
 [[patches.instruction]]
 func = "func_8006DC64"
 vram = 0x8006EADC

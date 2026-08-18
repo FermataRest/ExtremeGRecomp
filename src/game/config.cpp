@@ -185,9 +185,9 @@ static void add_graphics_options(recomp::config::Config &config) {
     config.add_enum_option(
         banjo::configkeys::graphics::native_framerate_mode,
         "Internal Framerate",
-        "Sets the internal framerate of the game, 30 FPS is the default and matches the original game, 60 FPS can improve responsiveness at the expense of performance",
+        "Sets the internal framerate of the game, 30 FPS matches the original game, 60 FPS can improve responsiveness at the expense of performance",
         native_framerate_mode_options,
-        banjo::NativeFrameRateMode::_30_FPS
+        banjo::NativeFrameRateMode::_60_FPS
     );
 }
 

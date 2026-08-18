@@ -23,7 +23,7 @@
 
 static void add_general_options(recomp::config::Config &config) {
     using EnumOptionVector = const std::vector<recomp::config::ConfigOptionEnumOption>;
-
+    # if 0
     static EnumOptionVector note_saving_mode_options = {
         {banjo::NoteSavingMode::Off,        "Off",    "Off"},
         {banjo::NoteSavingMode::OnlyNotes,  "Notes",  "Only Notes"},
@@ -99,6 +99,7 @@ static void add_general_options(recomp::config::Config &config) {
         flying_and_swimming_invert_options,
         banjo::CameraInvertMode::InvertY
     );
+    #endif
 }
 
 template <typename T = uint32_t>

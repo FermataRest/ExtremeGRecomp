@@ -79,6 +79,32 @@ func = "func_800D9F30"
 text = "demo_widescreen_transition_fix(rdram, ctx);"
 before_vram = 0x800D9F30
 
+# hook for multiplayer controller assignment
+[[patches.hook]]
+func = "func_80068360"
+text = """
+uint32_t gameMode = (uint32_t) ctx->r7;
+switch (gameMode) {
+    case 0:
+    case 1:
+    case 2:
+        recomp_set_singleplayer_mode(rdram, ctx);
+        break;
+    case 6:
+    case 7:
+    case 8:
+        recomp_set_multiplayer_max_two_players(rdram, ctx);
+        break;
+    case 3:
+    case 4:
+    case 5:
+    case 9:
+        recomp_set_multiplayer_max_four_players(rdram, ctx);
+        break;
+}
+"""
+before_vram = 0x80068368
+
 # Fix for the menu transitions, not working very well
 # [[patches.instruction]]
 # func = "func_800E0734"

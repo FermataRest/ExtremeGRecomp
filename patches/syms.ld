@@ -51,3 +51,5 @@ recomp_get_analog_cam_sensitivity = 0x8F0000C4;
 recomp_run_ui_callbacks = 0x8F0000C8;
 recomp_get_jinjo_saving_enabled = 0x8F0000CC;
 osViGetCurrentFramebuffer_recomp = 0x8F0000D0;
+recomp_set_multiplayer_max_two_players = 0x8F0000D4;
+recomp_set_multiplayer_max_four_players = 0x8F0000D8;

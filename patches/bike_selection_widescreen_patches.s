@@ -1349,9 +1349,27 @@ glabel func_800E5D68
     /* 89AAD8 800E5ED8 3C108017 */  lui        $s0, %hi(gMasterDisp)
     /* 89AADC 800E5EDC 261089EC */  addiu      $s0, $s0, %lo(gMasterDisp)
 
-    // Bike name
-    jal EG_RectAlign_Origin_Left_Left
+    // Bike name in Single player, shot type in multiplayer
+
+    // if (gPlayerCount == 2) {
+    //   align to right()
+    // } else {
+    //   align to left()
+    // }
+
+    lui     $v1, %hi(D_8017AA38)
+    lw      $v1, %lo(D_8017AA38)($v1)
+    addiu   $v0, $zero, 2
+    bne     $v1, $v0, .left
     nop
+    jal     EG_RectAlign_Origin_Right_Right
+    nop
+    j       .out
+    nop
+    .left:
+    jal     EG_RectAlign_Origin_Left_Left
+    nop
+    .out:
 
     /* 89AAE0 800E5EE0 0C018B20 */  jal        func_80062C80
     /* 89AAE4 800E5EE4 02002021 */   addu      $a0, $s0, $zero
@@ -1665,10 +1683,26 @@ glabel func_800E7900
     /* 89C770 800E7B70 AFA3001C */  sw         $v1, 0x1C($sp)
     /* 89C774 800E7B74 AFA80020 */  sw         $t0, 0x20($sp)
     /* 89C778 800E7B78 AFB10024 */  sw         $s1, 0x24($sp)
+
     /* 89C77C 800E7B7C 0C019101 */  jal        func_80064404
     /* 89C780 800E7B80 AFA20028 */   sw        $v0, 0x28($sp)
+      
+    jal EG_gEXEnable
+    nop
+
+    jal EG_gEXSetScissor
+    nop
+  
+    // Legend: LEFT BUTTON TO REARRANGE THE SCREEN
+    jal EG_RectAlign_Origin_Left_Left
+    nop
+
     /* 89C784 800E7B84 0C018B20 */  jal        func_80062C80
     /* 89C788 800E7B88 02002021 */   addu      $a0, $s0, $zero
+
+    jal EG_RectAlign_Origin_None_None
+    nop
+
   .L800E7B8C:
     /* 89C78C 800E7B8C 8FBF003C */  lw         $ra, 0x3C($sp)
     /* 89C790 800E7B90 8FB20038 */  lw         $s2, 0x38($sp)

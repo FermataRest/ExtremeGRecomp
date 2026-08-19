@@ -59,3 +59,4 @@ osMotorStart_recomp = 0x8F0001E4;
 osSetEventMesg_recomp = 0x8F0001E8;
 osContStartQuery_recomp = 0x8F0001EC;
 osContGetQuery_recomp = 0x8F0001F0;
+osPfsIsPlug_recomp = 0x8F0001F4;

@@ -9,7 +9,7 @@ on:
       N64RECOMP_COMMIT:
         type: string
         required: false
-        default: '98bf104b1b5ed83126af8bcab0cc964782617dbf'
+        default: 'extreme-g'
     secrets:
       EG_REPO_WITH_PAT:
         required: true
@@ -65,7 +65,7 @@ jobs:
 
       - name: Build N64Recomp & RSPRecomp
         run: |
-          git clone https://github.com/Mr-Wiseguy/N64Recomp.git --recurse-submodules N64RecompSource
+          git clone https://gitlab.com/sonicdcer/N64Recomp.git --recurse-submodules N64RecompSource
           cd N64RecompSource
           git checkout ${{ inputs.N64RECOMP_COMMIT }}
           git submodule update --init --recursive
@@ -213,7 +213,7 @@ jobs:
 
       - name: Build N64Recomp & RSPRecomp
         run: |
-          git clone https://github.com/Mr-Wiseguy/N64Recomp.git --recurse-submodules N64RecompSource
+          git clone https://gitlab.com/sonicdcer/N64Recomp.git --recurse-submodules N64RecompSource
           cd N64RecompSource
           git checkout ${{ inputs.N64RECOMP_COMMIT }}
           git submodule update --init --recursive
@@ -299,7 +299,7 @@ jobs:
 
       - name: Build N64Recomp & RSPRecomp
         run: |
-          git clone https://github.com/Mr-Wiseguy/N64Recomp.git --recurse-submodules N64RecompSource
+          git clone https://gitlab.com/sonicdcer/N64Recomp.git --recurse-submodules N64RecompSource
           cd N64RecompSource
           git checkout ${{ inputs.N64RECOMP_COMMIT }}
           git submodule update --init --recursive
@@ -393,7 +393,7 @@ jobs:
 
       - name: Build N64Recomp & RSPRecomp
         run: |
-          git clone https://github.com/Mr-Wiseguy/N64Recomp.git --recurse-submodules N64RecompSource
+          git clone https://gitlab.com/sonicdcer/N64Recomp.git --recurse-submodules N64RecompSource
           cd N64RecompSource
           git checkout ${{ inputs.N64RECOMP_COMMIT }}
           git submodule update --init --recursive

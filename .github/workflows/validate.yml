@@ -83,8 +83,8 @@ jobs:
           cp cmake-build/RSPRecomp ..
       - name: Run N64Recomp & RSPRecomp
         run: |
-          ./N64Recomp us.rev1.toml
-          ./RSPRecomp aspMain.us.rev1.toml
+          ./N64Recomp us.toml
+          ./RSPRecomp aspMain.us.toml
 
       - name: Build ExtremeGRecomp
         run: |-
@@ -231,8 +231,8 @@ jobs:
           cp cmake-build/RSPRecomp ..
       - name: Run N64Recomp & RSPRecomp
         run: |
-          ./N64Recomp us.rev1.toml
-          ./RSPRecomp aspMain.us.rev1.toml
+          ./N64Recomp us.toml
+          ./RSPRecomp aspMain.us.toml
 
       - name: Build ExtremeGRecomp
         run: |-
@@ -317,8 +317,8 @@ jobs:
           cp cmake-build/RSPRecomp.exe ..
       - name: Run N64Recomp & RSPRecomp
         run: |
-          ./N64Recomp.exe us.rev1.toml
-          ./RSPRecomp.exe aspMain.us.rev1.toml
+          ./N64Recomp.exe us.toml
+          ./RSPRecomp.exe aspMain.us.toml
       - name: Build ExtremeGRecomp
         run: |-
           # enable ccache
@@ -411,8 +411,8 @@ jobs:
           cp cmake-build/RSPRecomp ..
       - name: Run N64Recomp & RSPRecomp
         run: |
-          ./N64Recomp us.rev1.toml
-          ./RSPRecomp aspMain.us.rev1.toml
+          ./N64Recomp us.toml
+          ./RSPRecomp aspMain.us.toml
       - name: Build ExtremeGRecomp
         run: |-
           # enable ccache

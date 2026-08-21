@@ -1,6 +1,6 @@
 # Extreme-G: Recompiled
 Extreme-G: Recompiled is a project that uses [N64: Recompiled](https://github.com/N64Recomp/N64Recomp) to **statically recompile** Extreme-G into a native port with many new features, enhancements, and extensive mod support. This project uses [RT64](https://github.com/rt64/rt64) as the rendering engine to provide graphical enhancements.
-
+ 
 ### [Check out the latest release here](https://github.com/ExtremeGRecomp/ExtremeGRecomp/releases/latest).
 
 Join the [N64: Recompiled Community Discord](https://discord.gg/AWZThJ4dPf) to discuss this and other N64: Recompiled projects!

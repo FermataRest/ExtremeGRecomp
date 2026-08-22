@@ -158,24 +158,33 @@ value = 0x0
 [[patches.hook]]
 func = "func_8006DC64"
 text = """
+gpr savedR2 = ctx->r2;
 gpr savedR5 = ctx->r5;
 gpr savedR4 = ctx->r4;
-ctx->r4 = S32(0X8017 << 16); // gCurrentLevel Address 0x801687A8
-ctx->r4 = ADD32(ctx->r4, -0x7858);
-ctx->r5 = MEM_W(ctx->r4, 0X0); // gCurrentLevel Value
-switch ((uint32_t) ctx->r5) {
-    case 0: // DESERT_1_AZTEC_RUINS
-    case 1: // DESERT_2_BONES_AND_PIPES
-    case 2: // DESERT_3_SPACESHIP_GRAVEYARD
-    case 3: // MINES_1_THE_TUNNEL
-    case 4: // MINES_2_THE_CANYON
-    case 5: // MINES_3_THE_VOLCANO
-        ctx->r5 = savedR5;ctx->r5 = S32(0X4000 << 16); // 0x8006DD68: lui         $a1, 0x4000
-        break;
-    default:
-        ctx->r5 = savedR5;ctx->r5 = S32(0X4080 << 16); // 0x8006DD68: lui         $a1, 0x4080
-        break;
+
+recomp_get_draw_distance_config(rdram, ctx);
+if (ctx->r2 == 0) { // Extended
+    ctx->r4 = S32(0X8017 << 16); // gCurrentLevel Address 0x801687A8
+    ctx->r4 = ADD32(ctx->r4, -0x7858);
+    ctx->r5 = MEM_W(ctx->r4, 0X0); // gCurrentLevel Value
+    switch ((uint32_t) ctx->r5) {
+        case 0: // DESERT_1_AZTEC_RUINS
+        case 1: // DESERT_2_BONES_AND_PIPES
+        case 2: // DESERT_3_SPACESHIP_GRAVEYARD
+        case 3: // MINES_1_THE_TUNNEL
+        case 4: // MINES_2_THE_CANYON
+        case 5: // MINES_3_THE_VOLCANO
+            ctx->r5 = savedR5;ctx->r5 = S32(0X4000 << 16); // 0x8006DD68: lui         $a1, 0x4000
+            break;
+        default:
+            ctx->r5 = savedR5;ctx->r5 = S32(0X4080 << 16); // 0x8006DD68: lui         $a1, 0x4080
+            break;
+    }
+} else { // Original
+    ctx->r5 = savedR5;
+    ctx->r5 = S32(0X3F80 << 16);
 }
+ctx->r2 = savedR2;
 ctx->r4 = savedR4;
 """
 before_vram = 0x8006DD6C
@@ -188,8 +197,27 @@ value = 0x0
 [[patches.hook]]
 func = "func_8006B1AC"
 text = """
-gpr savedR5 = ctx->r5; // Save registers 
-gpr savedR4 = ctx->r4; // Save registers 
+gpr savedR2 = ctx->r2;
+gpr savedR5 = ctx->r5; // Save registers
+recomp_get_fog_distance_config(rdram, ctx);
+switch ((uint32_t) (ctx->r2)) {
+case 2: // Original
+    ctx->r5 = savedR5;ctx->r5 = ctx->r5 | 0XF400; // original
+    ctx->r2 = savedR2;
+    goto Override;
+    break;
+case 1: // Disabled
+    ctx->r5 = savedR5;ctx->r5 = ctx->r5 | 0XDD00;
+    ctx->r2 = savedR2;
+    goto Override;
+    break;
+default:
+case 0:
+    goto Extended;
+    break;
+}
+Extended:
+gpr savedR4 = ctx->r4; // Save registers
 ctx->r4 = S32(0X8017 << 16); // gCurrentLevel Address
 ctx->r4 = ADD32(ctx->r4, -0x7858); // 0x801687A8
 ctx->r5 = MEM_W(ctx->r4, 0X0); // gCurrentLevel Value
@@ -212,6 +240,7 @@ default:
     break;
 }
 ctx->r4 = savedR4;
+Override:
 """
 before_vram = 0x8006B624
 

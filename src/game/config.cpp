@@ -185,6 +185,15 @@ static void add_graphics_options(recomp::config::Config &config) {
         {banjo::NativeFrameRateMode::_30_FPS, "30 FPS", "30 FPS"},
         {banjo::NativeFrameRateMode::_60_FPS, "60 FPS", "60 FPS"},
     };
+    static EnumOptionVector draw_distance_mode_options = {
+        { banjo::DrawDistanceMode::Original, "Original", "Original" },
+        { banjo::DrawDistanceMode::Extended, "Extended", "Extended" },
+    };
+    static EnumOptionVector fog_distance_mode_options = {
+        { banjo::FogDistanceMode::Original, "Original", "Original" },
+        { banjo::FogDistanceMode::Extended, "Extended", "Extended" },
+        { banjo::FogDistanceMode::Disabled, "Disabled", "Disabled" },
+    };
     config.add_enum_option(
         banjo::configkeys::graphics::native_framerate_mode,
         "Internal Framerate",
@@ -192,70 +201,93 @@ static void add_graphics_options(recomp::config::Config &config) {
         native_framerate_mode_options,
         banjo::NativeFrameRateMode::_60_FPS
     );
+    config.add_enum_option(
+        banjo::configkeys::graphics::draw_distance_mode,
+        "Draw Distance",
+        "Sets the Draw Distance of the level geometry. This setting only affects single player mode.",
+        draw_distance_mode_options,
+        banjo::DrawDistanceMode::Extended
+    );
+    config.add_enum_option(
+        banjo::configkeys::graphics::fog_distance_mode,
+        "Fog Distance",
+        "Sets the Fog Distance, Extended is fine-tuned to be as far as possible without any popping and it's the recommended setting.",
+        fog_distance_mode_options,
+        banjo::DrawDistanceMode::Extended
+    );
 }
 
 static void set_control_defaults() {
     using namespace recompinput;
 
-    // Left shoulder -> C Down | Backwards eggs / zoom out
+    // Right shoulder | Right trigger -> R
     set_default_mapping_for_controller(
-        GameInput::C_DOWN,
+        GameInput::R,
         { 
-            InputField::controller_analog(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY, true),
+            InputField::controller_analog(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_TRIGGERRIGHT, true),
+            InputField::controller_digital(SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
+
+        }
+    );
+
+    // Left shoulder | Left trigger -> L
+    set_default_mapping_for_controller(
+        GameInput::Z,
+        { 
+            InputField::controller_analog(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_TRIGGERLEFT, true),
             InputField::controller_digital(SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_LEFTSHOULDER)
         }
     );
 
-    // Right shoulder -> C Up | Forwards eggs / first person
+    // Left shoulder -> C Down
     set_default_mapping_for_controller(
-        GameInput::C_UP,
+        GameInput::C_DOWN,
         { 
-            InputField::controller_analog(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY, false),
-            InputField::controller_digital(SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
-        }
-    );
-
-    // North button -> C Left | Talon trot / camera left
-    set_default_mapping_for_controller(
-        GameInput::C_LEFT,
-        { 
-            InputField::controller_analog(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX, false),
-            InputField::controller_digital(SDL_CONTROLLER_BUTTON_NORTH)
-        }
-    );
-
-    // East button -> C Right | Wonderwing / camera right
-    set_default_mapping_for_controller(
-        GameInput::C_RIGHT,
-        { 
-            InputField::controller_analog(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX, true),
+            InputField::controller_analog(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY, true),
             InputField::controller_digital(SDL_CONTROLLER_BUTTON_EAST)
         }
     );
 
-    // R3 -> L | Unused in BK but can be used in mods
+    // Right shoulder -> C Up
+    set_default_mapping_for_controller(
+        GameInput::C_UP,
+        { 
+            InputField::controller_analog(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTY, false),
+        }
+    );
+
+    // East button -> C Right
+    set_default_mapping_for_controller(
+        GameInput::C_RIGHT,
+        { 
+            InputField::controller_analog(SDL_GameControllerAxis::SDL_CONTROLLER_AXIS_RIGHTX, true),
+            InputField::controller_digital(SDL_CONTROLLER_BUTTON_NORTH)
+        }
+    );
+
+    // R3 -> L | Unused in EG but can be used in mods
     set_default_mapping_for_controller(GameInput::L, { InputField::controller_digital(SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_RIGHTSTICK) });
 }
 
 static void set_control_descriptions() {
-    recompinput::set_game_input_description(recompinput::GameInput::Y_AXIS_POS, "Used to move and for steering while flying and swimming. Axis inversion for flying and swimming can be configured in the General tab.");
-    recompinput::set_game_input_description(recompinput::GameInput::Y_AXIS_NEG, "Used to move and for steering while flying and swimming. Axis inversion for flying and swimming can be configured in the General tab.");
-    recompinput::set_game_input_description(recompinput::GameInput::X_AXIS_NEG, "Used to move and for steering while flying and swimming. Axis inversion for flying and swimming can be configured in the General tab.");
-    recompinput::set_game_input_description(recompinput::GameInput::X_AXIS_POS, "Used to move and for steering while flying and swimming. Axis inversion for flying and swimming can be configured in the General tab.");
-    recompinput::set_game_input_description(recompinput::GameInput::A, "Used to jump and select options in menus. Also used for flying upwards.");
-    recompinput::set_game_input_description(recompinput::GameInput::B, "Used for attacks, which change depending on whether you are stationary, moving, in the air, or crouching.");
-    recompinput::set_game_input_description(recompinput::GameInput::Z, "Used to crouch, which enables A, B and the C-Buttons to perform different actions.");
-    recompinput::set_game_input_description(recompinput::GameInput::L, "Used to skip dialogue boxes during game replays (press L + R + B simultaneously). Mods may also use it separately for additional features.");
-    recompinput::set_game_input_description(recompinput::GameInput::R, "Used to center the camera behind Banjo on the ground, and to perform tighter turns while flying or swimming.");
-    recompinput::set_game_input_description(recompinput::GameInput::START, "Used for pausing and for skipping certain cutscenes.");
-    recompinput::set_game_input_description(recompinput::GameInput::C_UP, "Used to enter first-person mode, and to shoot eggs while holding Z.");
-    recompinput::set_game_input_description(recompinput::GameInput::C_DOWN, "Used to toggle between the different camera zoom levels, and to shoot eggs backwards while holding Z.");
-    recompinput::set_game_input_description(recompinput::GameInput::C_LEFT, "Used to rotate the camera sideways. Axis inversion can be configured in the General tab. Also used to enter Talon Trot while holding Z.");
-    recompinput::set_game_input_description(recompinput::GameInput::C_RIGHT, "Used to rotate the camera sideways. Axis inversion can be configured in the General tab). Also used to enter Wonderwing while holding Z.");
-    recompinput::set_game_input_description(recompinput::GameInput::DPAD_UP, "Unused. Mods may use it for additional features.");
-    recompinput::set_game_input_description(recompinput::GameInput::DPAD_DOWN, "Unused. Mods may use it for additional features.");
-    recompinput::set_game_input_description(recompinput::GameInput::DPAD_LEFT, "Unused. Mods may use it for additional features.");
-    recompinput::set_game_input_description(recompinput::GameInput::DPAD_RIGHT, "Unused. Mods may use it for additional features.");
+    // recompinput::set_game_input_description(recompinput::GameInput::Y_AXIS_POS, "Used to move and for steering while flying and swimming. Axis inversion for flying and swimming can be configured in the General tab.");
+    // recompinput::set_game_input_description(recompinput::GameInput::Y_AXIS_NEG, "Used to move and for steering while flying and swimming. Axis inversion for flying and swimming can be configured in the General tab.");
+    // recompinput::set_game_input_description(recompinput::GameInput::X_AXIS_NEG, "Used to move and for steering while flying and swimming. Axis inversion for flying and swimming can be configured in the General tab.");
+    // recompinput::set_game_input_description(recompinput::GameInput::X_AXIS_POS, "Used to move and for steering while flying and swimming. Axis inversion for flying and swimming can be configured in the General tab.");
+    // recompinput::set_game_input_description(recompinput::GameInput::A, "Used to jump and select options in menus. Also used for flying upwards.");
+    // recompinput::set_game_input_description(recompinput::GameInput::B, "Used for attacks, which change depending on whether you are stationary, moving, in the air, or crouching.");
+    // recompinput::set_game_input_description(recompinput::GameInput::Z, "Used to crouch, which enables A, B and the C-Buttons to perform different actions.");
+    // recompinput::set_game_input_description(recompinput::GameInput::L, "Used to skip dialogue boxes during game replays (press L + R + B simultaneously). Mods may also use it separately for additional features.");
+    // recompinput::set_game_input_description(recompinput::GameInput::R, "Used to center the camera behind Banjo on the ground, and to perform tighter turns while flying or swimming.");
+    // recompinput::set_game_input_description(recompinput::GameInput::START, "Used for pausing and for skipping certain cutscenes.");
+    // recompinput::set_game_input_description(recompinput::GameInput::C_UP, "Used to enter first-person mode, and to shoot eggs while holding Z.");
+    // recompinput::set_game_input_description(recompinput::GameInput::C_DOWN, "Used to toggle between the different camera zoom levels, and to shoot eggs backwards while holding Z.");
+    // recompinput::set_game_input_description(recompinput::GameInput::C_LEFT, "Used to rotate the camera sideways. Axis inversion can be configured in the General tab. Also used to enter Talon Trot while holding Z.");
+    // recompinput::set_game_input_description(recompinput::GameInput::C_RIGHT, "Used to rotate the camera sideways. Axis inversion can be configured in the General tab). Also used to enter Wonderwing while holding Z.");
+    // recompinput::set_game_input_description(recompinput::GameInput::DPAD_UP, "Unused. Mods may use it for additional features.");
+    // recompinput::set_game_input_description(recompinput::GameInput::DPAD_DOWN, "Unused. Mods may use it for additional features.");
+    // recompinput::set_game_input_description(recompinput::GameInput::DPAD_LEFT, "Unused. Mods may use it for additional features.");
+    // recompinput::set_game_input_description(recompinput::GameInput::DPAD_RIGHT, "Unused. Mods may use it for additional features.");
 }
 
 banjo::CutsceneAspectRatioMode banjo::get_cutscene_aspect_ratio_mode() {
@@ -264,6 +296,14 @@ banjo::CutsceneAspectRatioMode banjo::get_cutscene_aspect_ratio_mode() {
 
 banjo::NativeFrameRateMode banjo::get_native_framerate_mode() {
     return get_graphics_config_enum_value<banjo::NativeFrameRateMode>(banjo::configkeys::graphics::native_framerate_mode);
+}
+
+banjo::DrawDistanceMode banjo::get_draw_distance_mode() {
+    return get_graphics_config_enum_value<banjo::DrawDistanceMode>(banjo::configkeys::graphics::draw_distance_mode);
+}
+
+banjo::FogDistanceMode banjo::get_fog_distance_mode() {
+    return get_graphics_config_enum_value<banjo::FogDistanceMode>(banjo::configkeys::graphics::fog_distance_mode);
 }
 
 void banjo::init_config() {

@@ -60,3 +60,5 @@ osSetEventMesg_recomp = 0x8F0001E8;
 osContStartQuery_recomp = 0x8F0001EC;
 osContGetQuery_recomp = 0x8F0001F0;
 osPfsIsPlug_recomp = 0x8F0001F4;
+recomp_get_draw_distance_config = 0x8F0001F8;
+recomp_get_fog_distance_config = 0x8F0001FC;

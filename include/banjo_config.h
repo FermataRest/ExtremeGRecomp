@@ -29,6 +29,8 @@ namespace banjo {
         namespace graphics {
             inline const std::string cutscene_aspect_ratio_mode = "cutscene_aspect_ratio_mode";
             inline const std::string native_framerate_mode = "native_framerate_mode";
+            inline const std::string draw_distance_mode = "draw_distance_mode";
+            inline const std::string fog_distance_mode = "fog_distance_mode";
         }
     }
 
@@ -96,8 +98,23 @@ namespace banjo {
         OptionCount
     };
 
+    enum class DrawDistanceMode {
+        Original,
+        Extended,
+        OptionCount
+    };
+
+    enum class FogDistanceMode {
+        Original,
+        Extended,
+        Disabled,
+        OptionCount
+    };
+
     CutsceneAspectRatioMode get_cutscene_aspect_ratio_mode();
     NativeFrameRateMode get_native_framerate_mode();
+    DrawDistanceMode get_draw_distance_mode();
+    FogDistanceMode get_fog_distance_mode();
 
     void open_quit_game_prompt();
 };

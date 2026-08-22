@@ -101,13 +101,14 @@ namespace banjo {
     enum class DrawDistanceMode {
         Original,
         Extended,
+        Extreme,
         OptionCount
     };
 
     enum class FogDistanceMode {
         Original,
         Extended,
-        Disabled,
+        Extreme,
         OptionCount
     };
 

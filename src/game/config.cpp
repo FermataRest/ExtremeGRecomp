@@ -188,11 +188,12 @@ static void add_graphics_options(recomp::config::Config &config) {
     static EnumOptionVector draw_distance_mode_options = {
         { banjo::DrawDistanceMode::Original, "Original", "Original" },
         { banjo::DrawDistanceMode::Extended, "Extended", "Extended" },
+        { banjo::DrawDistanceMode::Extreme, "Extreme", "Extreme" },
     };
     static EnumOptionVector fog_distance_mode_options = {
         { banjo::FogDistanceMode::Original, "Original", "Original" },
         { banjo::FogDistanceMode::Extended, "Extended", "Extended" },
-        { banjo::FogDistanceMode::Disabled, "Disabled", "Disabled" },
+        { banjo::FogDistanceMode::Extreme, "Extreme", "Extreme" },
     };
     config.add_enum_option(
         banjo::configkeys::graphics::native_framerate_mode,
@@ -204,14 +205,14 @@ static void add_graphics_options(recomp::config::Config &config) {
     config.add_enum_option(
         banjo::configkeys::graphics::draw_distance_mode,
         "Draw Distance",
-        "Sets the Draw Distance of the level geometry. This setting only affects single player mode.",
+        "Sets the Draw Distance of the level geometry. This setting only affects single player mode. Original respects the original game setting. Extended (Recommended) is fine-tuned to be as far as possible without causing performance issues. Extreme sets the draw distance to unlimited (Warning, this can be really expensive to the CPU while interpolation is enabled and can cause dramatic performance drops).",
         draw_distance_mode_options,
         banjo::DrawDistanceMode::Extended
     );
     config.add_enum_option(
         banjo::configkeys::graphics::fog_distance_mode,
         "Fog Distance",
-        "Sets the Fog Distance, Extended is fine-tuned to be as far as possible without any popping and it's the recommended setting.",
+        "Sets the Fog Distance. Original respects the original game setting. Extended (Recommended) is fine-tuned to be as far as possible without any popping. Extreme disables the fog completely",
         fog_distance_mode_options,
         banjo::DrawDistanceMode::Extended
     );

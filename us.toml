@@ -123,19 +123,21 @@ before_vram = 0x80068368
 # 8005414B 0002 // 60 fps
 # 8106DD6A 4080 // 8006DD68
 # 8106DE36 4050 // multiplayer draw distance for P1
-# 8104C49C 4050 // multiplayer draw distance for P2
+# 8104C49C 4050 // multiplayer draw distance for P2 (this is data)
 # 8106EADE 4050 // patched
-# 8106EBC2 4010
-# 8106ECDA 4010
-# 8106E382 4020
-# 8106E472 4020
-# 8106E58A 4020
-# 8106E67A 4020
-# 8106B622 DD00 <== TODO: check after this one (inclusive)
-# D117AA3A 0004
-# 8106B622 F400 // 8006B620
-# D117AA3A 0003
-# 8106B622 E000
+# 8106EBC2 4010 // patched
+# 8106ECDA 4010 // patched
+# 8106E382 4020 // patched
+# 8106E472 4020 // patched
+# 8106E58A 4020 // patched
+# 8106E67A 4020 // patched
+
+# Fog Distance Patches
+# 8106B622 DD00 // Very Far by default
+# D117AA3A 0004 // Check amount of players
+# 8106B622 F400 // Original if 4 players
+# D117AA3A 0003 // Check amount of players
+# 8106B622 E000 // Extended if 3 players
 
 # Draw distance for the 1st player in multiplayer
 [[patches.instruction]]
@@ -163,7 +165,7 @@ gpr savedR5 = ctx->r5;
 gpr savedR4 = ctx->r4;
 
 recomp_get_draw_distance_config(rdram, ctx);
-if (ctx->r2 == 0) { // Extended
+if ((uint32_t) ctx->r2 == 0) { // Extended
     ctx->r4 = S32(0X8017 << 16); // gCurrentLevel Address 0x801687A8
     ctx->r4 = ADD32(ctx->r4, -0x7858);
     ctx->r5 = MEM_W(ctx->r4, 0X0); // gCurrentLevel Value
@@ -180,6 +182,9 @@ if (ctx->r2 == 0) { // Extended
             ctx->r5 = savedR5;ctx->r5 = S32(0X4080 << 16); // 0x8006DD68: lui         $a1, 0x4080
             break;
     }
+} else if ((uint32_t) ctx->r2 == 2) { // Extreme
+    ctx->r5 = savedR5;
+    ctx->r5 = S32(0X4080 << 16); // 0x8006DD68: lui         $a1, 0x4080
 } else { // Original
     ctx->r5 = savedR5;
     ctx->r5 = S32(0X3F80 << 16);
@@ -203,12 +208,10 @@ recomp_get_fog_distance_config(rdram, ctx);
 switch ((uint32_t) (ctx->r2)) {
 case 2: // Original
     ctx->r5 = savedR5;ctx->r5 = ctx->r5 | 0XF400; // original
-    ctx->r2 = savedR2;
     goto Override;
     break;
-case 1: // Disabled
-    ctx->r5 = savedR5;ctx->r5 = ctx->r5 | 0XDD00;
-    ctx->r2 = savedR2;
+case 1: // Extreme
+    ctx->r5 = savedR5;ctx->r5 = ctx->r5 | 0X0000;
     goto Override;
     break;
 default:
@@ -241,6 +244,7 @@ default:
 }
 ctx->r4 = savedR4;
 Override:
+ctx->r2 = savedR2;
 """
 before_vram = 0x8006B624
 

@@ -164,6 +164,9 @@ extern "C" void recomp_get_draw_distance_config(uint8_t *rdram, recomp_context *
         case banjo::DrawDistanceMode::Original:
             _return(ctx, 1);
             return;
+        case banjo::DrawDistanceMode::Extreme:
+            _return(ctx, 2);
+            return;
         default:
         case banjo::DrawDistanceMode::Extended:
             _return(ctx, 0);
@@ -176,7 +179,7 @@ extern "C" void recomp_get_fog_distance_config(uint8_t *rdram, recomp_context *c
         case banjo::FogDistanceMode::Original:
             _return(ctx, 2);
             return;
-        case banjo::FogDistanceMode::Disabled:
+        case banjo::FogDistanceMode::Extreme:
             _return(ctx, 1);
             return;
         default:

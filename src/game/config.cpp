@@ -225,7 +225,7 @@ static void add_graphics_options(recomp::config::Config &config) {
         "<br />"
         "<recomp-color primary>Extended</recomp-color> (Recommended) is fine-tuned to be as far as possible without any popping." 
         "<br />"
-        "<recomp-color primary>Extreme</recomp-color> disables the fog completely",
+        "<recomp-color primary>Extreme</recomp-color> disables the fog completely.",
         fog_distance_mode_options,
         banjo::DrawDistanceMode::Extended
     );

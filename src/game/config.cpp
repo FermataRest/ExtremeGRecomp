@@ -221,7 +221,9 @@ static void add_graphics_options(recomp::config::Config &config) {
     config.add_enum_option(
         banjo::configkeys::graphics::fog_distance_mode,
         "Fog Distance",
-        "Sets the Fog Distance. Original respects the original game setting."
+        "Sets the Fog Distance."
+        "<br />"
+        "<recomp-color primary>Original</recomp-color> respects the original game setting."
         "<br />"
         "<recomp-color primary>Extended</recomp-color> (Recommended) is fine-tuned to be as far as possible without any popping." 
         "<br />"

@@ -9,7 +9,7 @@
 	url = https://github.com/rt64/rt64.git
 [submodule "ExtremeGRecompSyms"]
 	path = ExtremeGRecompSyms
-	url = https://github.com/ExtremeGRecomp/ExtremeGRecompSyms.git
+	url = https://gitlab.com/sonicdcer/ExtremeGRecompSyms.git
 [submodule "lib/ultralib"]
 	path = lib/ultralib
 	url = https://github.com/decompals/ultralib.git

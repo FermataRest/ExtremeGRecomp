@@ -1,6 +1,6 @@
 # Building Guide
 
-This guide will help you build the project on your local machine. The process will require you to provide a decompressed ROM of the US version of the game.
+This guide will help you build the project on your local machine. The process will require you to provide a ROM of the US version of the game.
 
 These steps cover: decompressing the ROM, running the recompiler and finally building the project.
 
@@ -36,21 +36,29 @@ choco install make
 ```
 
 ## 3. Decompressing the target ROM
-You will need to decompress the NTSC-U 1.0 N64 Extreme-G ROM (sha1: 1fe1632098865f639e22c11b9a81ee8f29c75d7a) before running the recompiler.
+You will need to decompress the NTSC-U 1.0 N64 Extreme-G ROM (sha1: eb9b273431970a6124319a8fd125f0b2cacd8966) before running the recompiler.
 
-The most straightforward way to do this is to set up the [Extreme-G decompilation](https://gitlab.com/banjo.decomp/Extreme-G), which will decompress the ROM when building. Alternatively, you can run the [bk_rom_compressor tool](https://github.com/MittenzHugg/bk_rom_compressor) directly, which is what the decompilation uses to decompress the ROM.
+If your ROM isn't in .z64 format, you can byte-swap it using the [N64 ROM Byte Swapper](https://hack64.net/tools/swapper.php)
+
+The most straightforward way to do this is to use the [Extreme-G decompression tool](https://gitlab.com/sonicdcer/ExtremeGRecomp/-/blob/main/tools/decompress_rom.py) directly, which is what the decompilation uses to decompress the ROM.
+
+cd into ./tools, place a us retail rom of Extreme-G and name it extremeg.us.z64
+run this command:
+python3 ./decompress_rom.py extremeg.us.z64 extremeg.us.uncompressed.z64
+
+Alternatively, you can do this is by setting up the [Extreme-G decompilation](https://gitlab.com/banjo.decomp/Extreme-G) project, which will decompress the ROM when building, the resulting decompressed rom will be named baserom.us.decompressed.z64. 
 
 Regardless of which method you use, copy the decompressed ROM to the root of the ExtremeGRecomp repository with this filename:
-- `banjo.us.v10.decompressed.z64`
+- `extremeg.us.uncompressed.z64`
 
 ## 4. Generating the C code
 
-Now that you have the required files, you must build [N64Recomp](https://github.com/N64Recomp/N64Recomp) and run it to generate the C code to be compiled. The building instructions can be found [here](https://github.com/N64Recomp/N64Recomp?tab=readme-ov-file#building). That will build the executables: `N64Recomp` and `RSPRecomp` which you should copy to the root of the ExtremeGRecomp repository.
+Now that you have the required files, you must build this fork and branch of [N64Recomp](https://gitlab.com/sonicdcer/N64Recomp/-/tree/extreme-g) and run it to generate the C code to be compiled. The building instructions can be found [here](https://gitlab.com/sonicdcer/N64Recomp?tab=readme-ov-file#building). That will build the executables: `N64Recomp` and `RSPRecomp` which you should copy to the root of the ExtremeGRecomp repository.
 
 After that, go back to the repository root, and run the following commands:
 ```bash
-./N64Recomp banjo.us.rev0.toml
-./RSPRecomp n_aspMain.us.rev0.toml
+./N64Recomp us.toml
+./RSPRecomp aspMain.us.toml
 ```
 
 ## 5. Building the Project

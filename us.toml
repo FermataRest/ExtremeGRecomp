@@ -204,6 +204,7 @@ func = "func_8006B1AC"
 text = """
 gpr savedR2 = ctx->r2;
 gpr savedR5 = ctx->r5; // Save registers
+gpr savedR4 = ctx->r4; // Save registers
 recomp_get_fog_distance_config(rdram, ctx);
 switch ((uint32_t) (ctx->r2)) {
 case 2: // Original
@@ -220,7 +221,6 @@ case 0:
     break;
 }
 Extended:
-gpr savedR4 = ctx->r4; // Save registers
 ctx->r4 = S32(0X8017 << 16); // gCurrentLevel Address
 ctx->r4 = ADD32(ctx->r4, -0x7858); // 0x801687A8
 ctx->r5 = MEM_W(ctx->r4, 0X0); // gCurrentLevel Value
@@ -242,8 +242,8 @@ default:
     ctx->r5 = savedR5;ctx->r5 = ctx->r5 | 0XDD00;
     break;
 }
-ctx->r4 = savedR4;
 Override:
+ctx->r4 = savedR4;
 ctx->r2 = savedR2;
 """
 before_vram = 0x8006B624

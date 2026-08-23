@@ -7,7 +7,7 @@ rom = 0x800000
 symbols_file_path = "ExtremeGRecompSyms/extremeg.us.syms.toml"
 rom_file_path = "extremeg.us.uncompressed.z64"
 output_func_path = "RecompiledFuncs"
-trace_mode = true
+# trace_mode = true
 
 [patches]
 stubs = [

@@ -1,7 +1,7 @@
 # Extreme-G: Recompiled
 Extreme-G: Recompiled is a project that uses [N64: Recompiled](https://github.com/N64Recomp/N64Recomp) to **statically recompile** Extreme-G into a native port with many new features, enhancements, and extensive mod support. This project uses [RT64](https://github.com/rt64/rt64) as the rendering engine to provide graphical enhancements.
  
-### [Check out the latest release here](https://github.com/ExtremeGRecomp/ExtremeGRecomp/releases/latest).
+### [Check out the latest release here](https://gitlab.com/sonicdcer/ExtremeGRecomp/-/releases).
 
 Join the [N64: Recompiled Community Discord](https://discord.gg/AWZThJ4dPf) to discuss this and other N64: Recompiled projects!
 
@@ -66,17 +66,7 @@ Any aspect ratio is supported, with all effects modded to work correctly in wide
 #### Mod Support
 Install community made mods and texture packs! Mods can change any part of the game, including adding completely new features and content. You can install mods by simply dragging the mod files onto the game window before starting the game or by clicking the **Install Mods** button in the mod menu. Mods can be toggled in the mod menu, and some mods can be configured there as well.
 
-Many mods are available on the project's Thunderstore page: https://thunderstore.io/c/banjo-recompiled/. The Thunderstore mod manager/r2modman is not required or supported, so simply download the mods directly from the website.
-
-If you're interested in making mods for this project, check out [the mod template](https://github.com/ExtremeGRecomp/BKRecompModTemplate) and [the modding documentation](https://hackmd.io/fMDiGEJ9TBSjomuZZOgzNg). If you're interested in making texture packs, check out [the RT64 documentation](https://github.com/rt64/rt64/blob/main/TEXTURE-PACKS.md). You can also join the [N64: Recompiled Modding Discord server](https://discord.gg/Z8Nbm455D4).
-
-#### Dual Analog Camera
-Play with a dual analog control for finer camera control! When this option is enabled, the right analog stick will control the camera. Buttons mapped to the right analog stick will still work while crouching, so you can keep the C-buttons mapped to it even when this setting is enabled.
-
-#### Note Saving
-Keep your notes when leaving a level or dying like in later releases of the game!
-
-This setting can be turned off to restore the N64 version's note score mechanic. Changing this setting will only take effect when returning to Grunty's Lair or restarting the game.
+If you're interested in making texture packs, check out [the RT64 documentation](https://github.com/rt64/rt64/blob/main/TEXTURE-PACKS.md). You can also join the [N64: Recompiled Modding Discord server](https://discord.gg/Z8Nbm455D4).
 
 #### Low Input Lag
 This project has been optimized to have as little input lag as possible, making the game feel more responsive than ever!
@@ -113,21 +103,15 @@ Instead, you can change the game by installing mods. See the [mod support](#mod-
 #### Can you run this project as a portable application?
 Yes, if you place a file named `portable.txt` in the same folder as the executable then this project will run in portable mode. In portable mode, the save files, config files, and mods are placed in the same folder as the executable.
 
-#### Were the duplicate Mumbo token IDs in the original game fixed?
-Yes. The incorrect Mumbo tokens now use previously unused token IDs. This won't affect mods that replace levels.
-
-#### Does note saving have the same issue as the XBLA version where it collects notes during Bottles' puzzles and prevents you from getting 100% completion?
-No. Care has been taken to ensure that notes are not saved during demos. 
-
 ## Known Issues
 * Overlays such as MSI Afterburner and other software such as Wallpaper Engine can cause performance issues with this project that prevent the game from rendering correctly. Disabling such software is recommended.
 
 ## Building
-Building is not required to play this project, as prebuilt binaries (which do not contain game assets) can be found in the [Releases](https://github.com/ExtremeGRecomp/ExtremeGRecomp/releases) section. Instructions on how to build this project can be found in the [BUILDING.md](BUILDING.md) file.
+Building is not required to play this project, as prebuilt binaries (which do not contain game assets) can be found in the [Releases](https://gitlab.com/sonicdcer/ExtremeGRecomp/-/releases) section. Instructions on how to build this project can be found in the [BUILDING.md](BUILDING.md) file.
 
 ## Libraries Used and Projects Referenced
 * [N64Recomp](https://github.com/N64Recomp/N64Recomp) for statically recompiling the game's code to run natively
 * [RT64](https://github.com/rt64/rt64) for the project's rendering engine
 * [N64ModernRuntime](https://github.com/N64Recomp/N64ModernRuntime) for replacing the original N64 runtime libraries and providing mod support
 * [RecompFrontend](https://github.com/N64Recomp/RecompFrontend) for menus and input handling
-* [Extreme-G Decompilation](https://gitlab.com/banjo.decomp/Extreme-G) for headers and some function definitions, used for making patches or some enhancements
+* [Extreme-G Decompilation](https://gitlab.com/sonicdcer/extreme-g) for headers and some function definitions, used for making patches or some enhancements

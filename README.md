@@ -46,11 +46,8 @@ If you have issues with crashes on startup, make sure your graphics drivers are 
 #### Plug and Play
 Simply provide your copy of the North American 1.0 version of the game in the main menu and start playing! This project will automatically load assets from the provided copy, so there is no need to go through a separate extraction step or build the game yourself.
 
-#### Fully Intact N64 Effects
-All advanced graphical effects, such as the jigsaw puzzle screen transition and Bottles' Moving Picture Game are fully intact and have been adapted for widescreen and high framerates. Fine details such as the game's original mipmapping preserved with a high degree of accuracy.
-
 #### Faithful Audio
-Music and sounds are perfectly faithful to the original N64 version of game, with all audio processing intact and no popping or stuttering. Scenes that synchronize audio to visuals have their timings corrected to ensure they remain synchronized as they did on original hardware.
+Music and sounds are perfectly faithful to the original N64 version of game, with all audio processing intact and no popping or stuttering.
 
 #### Easy-to-Use Menus
 Gameplay settings, graphics settings, input mappings, and audio settings can all be configured with the in-game config menu. The menus can all be used with mouse, controller, or keyboard for maximum convenience.

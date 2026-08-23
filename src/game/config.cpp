@@ -205,14 +205,27 @@ static void add_graphics_options(recomp::config::Config &config) {
     config.add_enum_option(
         banjo::configkeys::graphics::draw_distance_mode,
         "Draw Distance",
-        "Sets the Draw Distance of the level geometry. This setting only affects single player mode. Original respects the original game setting. Extended (Recommended) is fine-tuned to be as far as possible without causing performance issues. Extreme sets the draw distance to unlimited (Warning, this can be really expensive to the CPU while interpolation is enabled and can cause dramatic performance drops).",
+        "Sets the Draw Distance of the level geometry. This setting only affects single player mode."
+        "<br />"
+        "<recomp-color primary>Original</recomp-color> respects the original game setting."
+        "<br />"
+        "<recomp-color primary>Extended</recomp-color> (Recommended) is fine-tuned to be as far as possible without causing performance issues."
+        "<br />"
+        "<recomp-color primary>Extreme</recomp-color> sets the draw distance to unlimited. "
+        "<recomp-color warning>Warning</recomp-color>, the <recomp-color primary>Extreme</recomp-color> setting can be really expensive to the CPU while interpolation is enabled and can cause dramatic performance drops even on high end systems."
+        "<br />"
+        "It's recommended to set <recomp-color primary>Framerate</recomp-color> to <recomp-color primary>Original</recomp-color> (Interpolation disabled) as well as <recomp-color primary>Internal Framerate</recomp-color>  to <recomp-color primary>60 FPS</recomp-color>  when setting Draw Distance to <recomp-color primary>Extreme</recomp-color>.",
         draw_distance_mode_options,
         banjo::DrawDistanceMode::Extended
     );
     config.add_enum_option(
         banjo::configkeys::graphics::fog_distance_mode,
         "Fog Distance",
-        "Sets the Fog Distance. Original respects the original game setting. Extended (Recommended) is fine-tuned to be as far as possible without any popping. Extreme disables the fog completely",
+        "Sets the Fog Distance. Original respects the original game setting."
+        "<br />"
+        "<recomp-color primary>Extended</recomp-color> (Recommended) is fine-tuned to be as far as possible without any popping." 
+        "<br />"
+        "<recomp-color primary>Extreme</recomp-color> disables the fog completely",
         fog_distance_mode_options,
         banjo::DrawDistanceMode::Extended
     );

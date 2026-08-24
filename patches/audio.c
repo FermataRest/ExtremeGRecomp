@@ -32,7 +32,7 @@ void EG_SetBgmVolume(void) {
             var_a1 = (s16) (s32) var_fv1_2;
         }
 
-        recomp_printf("output: %f\n ",  recomp_get_bgm_volume());
+        // recomp_printf("recomp_get_bgm_volume output: %f\n ",  recomp_get_bgm_volume());
         alCSPSetVol(D_80095D0C, (s16)var_a1 * bgm_volume);
         D_80095D3C = 0;
     }

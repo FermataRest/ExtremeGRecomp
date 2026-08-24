@@ -146,14 +146,12 @@ T get_graphics_config_enum_value(const std::string& option_id) {
 }
 
 static void add_sound_options(recomp::config::Config &config) {
-    #if 1
     config.add_percent_number_option(
         banjo::configkeys::sound::bgm_volume,
         "Background Music Volume",
         "Controls the overall volume of background music.",
         100.0f
     );
-    #endif
 }
 template <typename T = uint32_t>
 T get_sound_config_number_value(const std::string& option_id) {

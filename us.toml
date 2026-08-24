@@ -50,6 +50,12 @@ func = "func_80058D7C"
 text = "osAiGetLength_recomp(rdram, ctx); ctx->r3 = ctx->r2;"
 before_vram = 0x80058DE0
 
+# bgm_volume
+[[patches.hook]]
+func = "func_800592E8"
+text = "EG_SetBgmVolume(rdram, ctx);"
+before_vram = 0x800594B8
+
 # Patch out break instruction, revisit later, not sure if it hits or not
 [[patches.instruction]]
 func = "func_8004D484"

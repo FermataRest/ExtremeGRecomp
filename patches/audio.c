@@ -1,7 +1,7 @@
 #include "patches.h"
 #include "sound.h"
 #include "PR/libaudio.h"
-#include "..\lib\ultralib\src\audio\sndp.h"
+#include "../lib/ultralib/src/audio/sndp.h"
 
 extern f64 D_8004BD08;
 extern f64 D_8004BD10;

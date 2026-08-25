@@ -152,6 +152,12 @@ static void add_sound_options(recomp::config::Config &config) {
         "Controls the overall volume of background music.",
         100.0f
     );
+    config.add_percent_number_option(
+        banjo::configkeys::sound::sfx_volume,
+        "Sound Effects Volume",
+        "Controls the overall volume of sound effects.",
+        100.0f
+    );
 }
 template <typename T = uint32_t>
 T get_sound_config_number_value(const std::string& option_id) {
@@ -160,6 +166,10 @@ T get_sound_config_number_value(const std::string& option_id) {
 
 int banjo::get_bgm_volume() {
     return get_sound_config_number_value<int>(banjo::configkeys::sound::bgm_volume);
+}
+
+int banjo::get_sfx_volume() {
+    return get_sound_config_number_value<int>(banjo::configkeys::sound::sfx_volume);
 }
 
 static void add_graphics_options(recomp::config::Config &config) {

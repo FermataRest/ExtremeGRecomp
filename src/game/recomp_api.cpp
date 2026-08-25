@@ -193,6 +193,10 @@ extern "C" void recomp_get_bgm_volume(uint8_t* rdram, recomp_context* ctx) {
     _return(ctx, banjo::get_bgm_volume() / 100.0f);
 }
 
+extern "C" void recomp_get_sfx_volume(uint8_t* rdram, recomp_context* ctx) {
+    _return(ctx, banjo::get_sfx_volume() / 100.0f);
+}
+
 extern "C" void recomp_get_analog_cam_sensitivity(uint8_t* rdram, recomp_context* ctx) {
     _return<uint32_t>(ctx, banjo::get_analog_cam_sensitivity());
 }

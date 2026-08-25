@@ -24,6 +24,7 @@ namespace banjo {
 
         namespace sound {
             inline const std::string bgm_volume = "bgm_volume";
+            inline const std::string sfx_volume = "sfx_volume";
         }
 
         namespace graphics {

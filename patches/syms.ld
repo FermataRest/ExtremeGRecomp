@@ -62,3 +62,4 @@ osContGetQuery_recomp = 0x8F0001F0;
 osPfsIsPlug_recomp = 0x8F0001F4;
 recomp_get_draw_distance_config = 0x8F0001F8;
 recomp_get_fog_distance_config = 0x8F0001FC;
+recomp_get_sfx_volume = 0x8F000200;

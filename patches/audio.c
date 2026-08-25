@@ -1,6 +1,7 @@
 #include "patches.h"
 #include "sound.h"
 #include "PR/libaudio.h"
+#include "..\lib\ultralib\src\audio\sndp.h"
 
 extern f64 D_8004BD08;
 extern f64 D_8004BD10;
@@ -110,3 +111,20 @@ RECOMP_PATCH void func_800592E8(void) {
     // @recomp save the last slider state
     prev_bgm_volume = bgm_volume;
 }
+
+RECOMP_PATCH void alSndpSetVol(ALSndPlayer *sndp, s16 vol) 
+{
+    ALSndpEvent evt;
+    ALSoundState  *sState = sndp->sndState;
+
+    evt.vol.type = AL_SNDP_VOL_EVT;
+    evt.vol.state = &sState[sndp->target];
+    
+    // @recomp update sfx volume with slider
+    // evt.vol.vol = vol;
+    evt.vol.vol = (s16)vol* recomp_get_sfx_volume();
+    
+    // recomp_printf("evt.vol.vol: %d\n", evt.vol.vol);
+    alEvtqPostEvent(&sndp->evtq, (ALEvent *)&evt, 0);
+}
+

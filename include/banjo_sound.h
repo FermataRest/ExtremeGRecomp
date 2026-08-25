@@ -3,6 +3,7 @@
 
 namespace banjo {
     int get_bgm_volume();
+    int get_sfx_volume();
 }
 
 #endif

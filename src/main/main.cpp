@@ -392,15 +392,13 @@ std::vector<recomp::GameEntry> supported_games = {
         .display_name = "Extreme-G: Recompiled",
         .game_id = u8"eg.n64.us",
         .mod_game_id = "eg",
-        // Eep16k instead of Eep4k to have room for extra save file data.
-        .save_type = recomp::SaveType::Eep16k,
+        .save_type = recomp::SaveType::None,
         .thumbnail_bytes = std::span<const char>(icon_bytes),
         .is_enabled = false,
         .decompression_routine = nullptr,
         .has_compressed_code = true,
         .entrypoint_address = get_entrypoint_address(),
         .entrypoint = recomp_entrypoint,
-        .on_init_callback = banjo::bk_on_init,
     },
 };
 
@@ -722,9 +720,6 @@ int main(int argc, char** argv) {
 
     banjo::register_bk_overlays();
     banjo::register_bk_patches();
-
-    // Register extensions for two types: Props and ActorMarkers.
-    recomputil::init_extended_object_data(2);
 
     recompinput::players::set_single_player_mode(true);
 
